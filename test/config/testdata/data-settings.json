@@ -1,0 +1,10 @@
+{
+    "posts": {
+        "query": {
+            "limit": 20
+        }
+    },
+    "paths": {
+        "images": "/test/config/testdata/images"
+    }
+}
