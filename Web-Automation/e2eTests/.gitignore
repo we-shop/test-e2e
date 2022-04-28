@@ -1,0 +1,20 @@
+/allure-results
+/allure-report
+/errorShots
+
+# dependencies
+/node_modules
+
+
+# misc
+.DS_Store
+../.DS_Store
+.vscode
+.idea
+npm-debug.log
+
+
+
+
+# reports
+WDIO.xunit.*
