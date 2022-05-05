@@ -2442,7 +2442,7 @@ describe("Wishlist",()=>{
     browser.pause(2000);
     newsfeedPage.logo.waitForVisible();
     newsfeedPage.logo.click();
-    Login.logout();
+    //Login.logout();
 
   })
 
@@ -2450,8 +2450,8 @@ describe("Wishlist",()=>{
 
 describe("create post - AAQ",()=>{
   it("Verify that 'Brands' label is displayed properly when user enters text related to the brand",()=>{
-     Login.login(testData.login.user3,testData.resetEmail.pw);
-     browser.pause(2000);
+    //  Login.login(testData.login.user3,testData.resetEmail.pw);
+    //  browser.pause(2000);
      postPage.plusIcon.waitForVisible();
      postPage.plusIcon.click();
      postPage.createPost(2).waitForVisible();
@@ -3479,7 +3479,7 @@ describe("Account",()=>{
 
   it("Verify that user is notified when password is changed",()=>{
     browser.back();
-    gmail.checkinbox_changeiframe_email([testData.resetEmail.pw, 'Enter']);
+    gmail.checkinbox_changeiframe_email([testData.resetEmail.email, 'Enter']);
     expect(gmail.emailChanged.getText()).to.eql(testData.resetEmail.chnagePw);
     browser.close();
   })

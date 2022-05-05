@@ -25,7 +25,7 @@ exports.config = {
   
     all: [
       "./e2eTests/specs/smoke.spec.js",
-       "./e2eTests/specs/regression.spec.js",
+      "./e2eTests/specs/regression.spec.js",
       //"./e2eTests/specs/regression1.spec.js",
     ],    //Suite which contains test involving Jenkins Build for KBs
     builds: [
@@ -198,13 +198,13 @@ exports.config = {
   },
   seleniumInstallArgs: {
     drivers: {
-      chrome: { version: '96.0.4664.18' },
+      chrome: { version: '100.0.4896.20' },
       firefox: { version: '0.25.0' },
     }
   },
   seleniumArgs: {
     drivers: {
-      chrome: { version: '96.0.4664.18' },
+      chrome: { version: '100.0.4896.20' },
       firefox: { version: '0.25.0' },
     }
   },

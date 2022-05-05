@@ -39,6 +39,7 @@
     "qs": "^6.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "rxjs-compat": "^6.6.7",
     "sfcc-deploy": "1.0.3",
     "slick-carousel-browserify": "^1.6.12",
     "stylelint": "^13.12.0",
@@ -49,7 +50,6 @@
     "svg4everybody": "^2.1.9",
     "uglifyify": "^4.0.5",
     "url": "^0.11.0",
-    "wdio-junit-reporter": "^0.4.4",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -107,7 +107,7 @@
     "watchify": "^3.9.0",
     "wdio-allure-reporter": "^0.8.3",
     "wdio-dot-reporter": "0.0.9",
-    "wdio-mocha-framework": "^0.5.12",
+    "wdio-mocha-framework": "^0.5.13",
     "wdio-selenium-standalone-service": "~0.0.12",
     "wdio-slack-reporter": "^1.0.0",
     "webdriverio": "^4.13.1"
@@ -117,8 +117,8 @@
     "build": "gulp build",
     "start": "gulp",
     "testscss": "gulp stylelint",
-    "selenium-setup": "selenium-standalone install --drivers.chrome.version=94.0.4606.113 --drivers.chrome.baseURL=https://chromedriver.storage.googleapis.com",
-    "selenium-start": "selenium-standalone start --drivers.chrome.version=94.0.4606.113 --drivers.chrome.baseURL=https://chromedriver.storage.googleapis.com",
+    "selenium-setup": "selenium-standalone install --drivers.chrome.version=100.0.4896.20 --drivers.chrome.baseURL=https://chromedriver.storage.googleapis.com",
+    "selenium-start": "selenium-standalone start --drivers.chrome.version=100.0.4896.20 --drivers.chrome.baseURL=https://chromedriver.storage.googleapis.com",
     "e2e-tests": "wdio wdio.conf.js --suite smoke",
     "sanity-tests": "wdio wdio.conf.js --suite sanity",
     "all-tests": "wdio wdio.conf.js --suite all",
@@ -143,8 +143,7 @@
     "lint:staged": "lint-staged"
   },
   "repository": {
-    "type": "git",
-    "url": "git@bitbucket.org:pixelmedia/meg401-megafood.com-sfcc-website.git"
+    "type": "git"
   },
   "author": "PixelMEDIA",
   "license": "UNLICENSED",
@@ -180,16 +179,8 @@
     ],
     "js": [
       {
-        "src": "./pattern-library/assets/js/megafood.js",
-        "dest": "./pattern-library/public/assets/js/"
-      },
-      {
         "src": "./pattern-library/assets/js/pattern-lib.js",
         "dest": "./pattern-library/public/assets/js/"
-      },
-      {
-        "src": "./pattern-library/assets/js/megafood.js",
-        "dest": "./cartridges/app_storefront_core/cartridge/static/default/js/"
       },
       {
         "src": "./cartridges/app_storefront_core/cartridge/js/app.js",
@@ -246,10 +237,6 @@
       {
         "src": "lib/google/int_google/**",
         "dest": "int_google/"
-      },
-      {
-        "src": "bm_megafood/**",
-        "dest": "bm_megafood/"
       },
       {
         "src": "int_chargelogic/**",
