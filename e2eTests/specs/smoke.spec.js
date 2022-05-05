@@ -22,6 +22,7 @@ describe("WeShop - Login", () => {
       }
       expect(homePage.welcome.getText()).to.eql(testData.weshop.hometitle);
       Login.logInPageBtn.waitForVisible();
+      Login.logInPageBtn.waitForVisible();
       Login.logInPageBtn.click();
       Login.welcomeText.waitForVisible();
       expect(Login.welcomeText.getText()).to.eql(testData.login.welcome);
