@@ -10,7 +10,7 @@ import productPage from '../page-objects/product.page.js';
 import gmail from '../page-objects/gmail.page'
 
 var price2=200;
-var emailResert;
+var emailResert,h;
 const path=require("path");
 
 describe("WeShop - Login", () => {
@@ -25,7 +25,7 @@ describe("WeShop - Login", () => {
       Login.logInPageBtn.click();
       Login.welcomeText.waitForVisible();
       expect(Login.welcomeText.getText()).to.eql(testData.login.welcome);
-  })
+    })
   
   it("Verify that user is able to login successfully using valid e-mail and password", ()=>{
       Login.login(testData.login.user1,testData.login.pw);
@@ -42,6 +42,11 @@ describe("WeShop - Login", () => {
   })   
 
   it("Verify that user can logout successfully when user select Logout option", ()=>{
+    browser.pause(2000);
+//         Login.setting.waitForVisible();
+//         //Login.setting.click();
+//         browser.rightClick('.settings-button-small',10,10);
+// browser.pause(100000)
       Login.logout();
   })
 });
@@ -1077,7 +1082,3 @@ describe("WeShop - Share",()=>{
   })
 
 });
-
-
-
-

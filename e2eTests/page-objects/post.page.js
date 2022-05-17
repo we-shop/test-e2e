@@ -346,7 +346,7 @@ postOptions(index){
 }
 
 postOperations(index){
-    return $(`.sc-1ov04d-1.kgzJHw.tooltip-container>ul>li:nth-child(${index})`)
+    return $(`.sc-1bmoby5-1.sbUpb.tooltip-container>ul>li:nth-child(${index})`)
 }
 
 get errorMsgForImage(){

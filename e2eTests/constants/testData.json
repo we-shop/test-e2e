@@ -5,7 +5,12 @@
 		"newsfeed":"https://uat.we.shop/s/newsfeed/feed",
 		"resetpassword":"https://uat.we.shop/s/password/reset",
 		"home":"n",
-		"hometitle":"A Truly Shoppable Social Network, Owned by You."
+		"hometitle":"A Truly Shoppable Social Network, Owned by You.",
+
+
+		"moon":"https://main--unknown-moon-toptal.netlify.app/#/file-vault",
+		"un":"kevin@maildrop.cc",
+		"pw":"qqqqq"
     },
 
 	"login":{
@@ -186,7 +191,7 @@
 	},
 
 	"profile":{
-		"firstname": "Smita Bharat Patil Jaysingpuo k",
+		"firstname": "Smita Bharat Patil Jaysingpuo l",
 		"name":"Neil's profile",
 		"changemail":"som@maildrop.cc",
 		"edit":"Edit your profile",
