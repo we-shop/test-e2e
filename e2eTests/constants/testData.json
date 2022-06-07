@@ -5,12 +5,7 @@
 		"newsfeed":"https://uat.we.shop/s/newsfeed/feed",
 		"resetpassword":"https://uat.we.shop/s/password/reset",
 		"home":"n",
-		"hometitle":"A Truly Shoppable Social Network, Owned by You.",
-
-
-		"moon":"https://main--unknown-moon-toptal.netlify.app/#/file-vault",
-		"un":"kevin@maildrop.cc",
-		"pw":"qqqqq"
+		"hometitle":"A Truly Shoppable Social Network, Owned by You."
     },
 
 	"login":{
@@ -127,7 +122,7 @@
 		"showinforBallon":"Search “ballon”",
 		"resultforbag":"Search “Bagutta”",
 		"resultforhat":"Search “hat”",
-		"retailername":"Boden",
+		"retailername":"Ted Baker",
 		"copiedpopup":"Link copied",
 		"randomname":"hhhhshsh",
 		"noResult":"No results found",
@@ -191,7 +186,7 @@
 	},
 
 	"profile":{
-		"firstname": "Smita Bharat Patil Jaysingpuo l",
+		"firstname": "Smita Bharat Patii Jaysingpur l",
 		"name":"Neil's profile",
 		"changemail":"som@maildrop.cc",
 		"edit":"Edit your profile",

@@ -454,7 +454,7 @@ get playBtn(){
 }
 
 get selectPrdRap(){
-    return $(".vtl34a-0.jRogFA.createPost-layout .vtl34a-1.kwFCqN .sc-195fhah-0.gLSDob .sajudl-0.idzkGR .ao51ir-0.lfyyWF:nth-child(6) .productItem .MuiButtonBase-root.MuiIconButton-root.jss15.MuiCheckbox-root.custom-checkbox-root .MuiIconButton-label ")
+    return $(".content-container .ao51ir-0.lfyyWF:nth-child(5) .MuiFormControlLabel-root span.MuiButtonBase-root.MuiIconButton-root.jss15.MuiCheckbox-root.custom-checkbox-root.MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary .MuiIconButton-label .jss18")
 }
 
 get hashTag(){
@@ -527,21 +527,31 @@ createQue(){
 }
 
 createRap(){
-    this.searchProductAaq.waitForVisible();
-    this.searchProductAaq.click();
-    this.searchProductAaq.setValue([testData.product.prdname, 'Enter']);
-    browser.scroll(0,100);
     browser.waitUntil(
         function() {
           return (
             browser.isVisible(
-              '.vtl34a-0.jRogFA.createPost-layout .vtl34a-1.kwFCqN .sc-195fhah-0.gLSDob .sajudl-0.idzkGR .ao51ir-0.lfyyWF:nth-child(6) .productItem .MuiButtonBase-root.MuiIconButton-root.jss15.MuiCheckbox-root.custom-checkbox-root .MuiIconButton-label '
+              '.sc-1wfjojd-0.ceySuO.shadowed>h3'
             ) === true
           );
         },
-        60000,
+        120000,
         "add item input field not visible even after 10s"
     );      
+    this.searchProductAaq.waitForVisible();
+    this.searchProductAaq.click();
+    this.searchProductAaq.setValue([testData.product.prdname1, 'Enter']);
+    // browser.waitUntil(
+    //     function() {
+    //       return (
+    //         browser.isVisible(
+    //           '.content-container .ao51ir-0.lfyyWF:nth-child(5) .productItem>img'
+    //         ) === true
+    //       );
+    //     },
+    //     60000,
+    //     "add item input field not visible even after 10s"
+    // );      
     this.selectPrdRap.waitForVisible();
     this.selectPrdRap.click();
     this.nextBtn.waitForVisible();
@@ -579,7 +589,7 @@ createRapForUpload(){
     expect(this.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
     this.searchProductAaq.waitForVisible();
     this.searchProductAaq.click();
-    this.searchProductAaq.setValue([testData.product.prdname, 'Enter']);
+    this.searchProductAaq.setValue([testData.product.prdname1, 'Enter']);
     browser.scroll(0,100);
     browser.waitUntil(
         function() {

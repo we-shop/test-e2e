@@ -9,7 +9,7 @@ class Filter extends Page{
     }
 
     get suggestion(){
-        return $("#search-typeahead-item-2")
+        return $("#search-typeahead-item-1")
     }
 
     gridViewPrd(index){
@@ -68,6 +68,14 @@ class Filter extends Page{
         return $("#merchants-toggle-button .MuiSvgIcon-root")
     }
 
+    get brandDropIcon(){
+        return $("#brands-toggle-button .MuiSvgIcon-root:nth-child(1)")
+    }
+
+    get retailerDropIcon(){
+        return $("#merchants-toggle-button .MuiSvgIcon-root:nth-child(1)")
+    }
+    
     get wishlistBackBtn(){
         return $(".back-link .MuiSvgIcon-root")
     }

@@ -31,7 +31,7 @@ describe("WeShop - Login", () => {
       Login.login(testData.login.user1,testData.login.pw);
       newsFeed.logo.waitForVisible();
       expect(newsFeed.logo.isVisible()).to.eql(true);
-      Login.logout();    
+      Login.logoutNewsfeed();    
   })   
 
   it("Verify that user is able to login successfully using valid username and password", ()=>{
@@ -42,12 +42,8 @@ describe("WeShop - Login", () => {
   })   
 
   it("Verify that user can logout successfully when user select Logout option", ()=>{
-    browser.pause(2000);
-//         Login.setting.waitForVisible();
-//         //Login.setting.click();
-//         browser.rightClick('.settings-button-small',10,10);
-// browser.pause(100000)
-      Login.logout();
+      browser.pause(2000);
+      Login.logoutNewsfeed();    
   })
 });
 
@@ -122,7 +118,7 @@ describe("WeShop - Search",()=>{
           function() {
             return (
               browser.isVisible(
-                '#search-typeahead-item-2'
+                '#search-typeahead-item-1'
               ) === true
             );
           },
@@ -180,7 +176,7 @@ describe("WeShop - Search",()=>{
         browser.pause(1000);
         newsFeed.logo.waitForVisible();
         newsFeed.logo.click();
-        Login.logout();
+        Login.logoutNewsfeed();    
     })
 });
 
@@ -221,7 +217,7 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.brandOption.waitForVisible();
         filterPage.brandOption.click();
-        filterPage.brandOption.addValue('boden');
+        filterPage.brandOption.addValue('b');
         browser.waitUntil(
             function() {
               return (
@@ -235,6 +231,8 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.brandSelect.waitForVisible();
         filterPage.brandSelect.click();
+        filterPage.brandDropIcon.waitForVisible();
+        filterPage.brandDropIcon.click();
         browser.scroll(0,100);
         browser.waitUntil(
           function() {
@@ -269,7 +267,7 @@ describe("WeShop - filter", ()=>{
         filterPage.retailerOption.waitForVisible();
         filterPage.retailerOption.waitForVisible();
         filterPage.retailerOption.click();
-        filterPage.retailerOption.addValue('boden');
+        filterPage.retailerOption.addValue('b');
         browser.waitUntil(
           function() {
             return (
@@ -283,6 +281,8 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.retailerSelect2.waitForVisible();
         filterPage.retailerSelect2.click();
+        filterPage.retailerDropIcon.waitForVisible();
+        filterPage.retailerDropIcon.click();
         filterPage.filterBlock.waitForVisible();
         filterPage.filterBlock.click();
         browser.scroll(0,100);
@@ -306,13 +306,13 @@ describe("WeShop - filter", ()=>{
         newsFeed.logo.waitForVisible();
         newsFeed.logo.click();
         browser.pause(2000);
-        Login.logout();
+        Login.logoutNewsfeed();
     })
 });
 
 describe("WeShop - Create post RAP", ()=>{
   it("Verify that the user is redirected to the Recommend a product step when Recommend a product button is clicked",()=>{
-      Login.login(testData.login.username,testData.share.password);
+      Login.login(testData.login.username1,testData.login.userPw);
       browser.pause(2000);
       postPage.plusIcon.waitForVisible();
       postPage.plusIcon.click();
@@ -484,7 +484,7 @@ describe("WeShop - Create a post AAQ - Looking for recommendations?", ()=>{
     );    
     expect(postPage.newPost.getText()).eql(testData.post.newpost);
     browser.pause(2000);
-    Login.logout();
+    Login.logoutNewsfeed();    
   })
 });
 
@@ -523,7 +523,7 @@ describe("WeShop - NewsFeed", ()=> {
     expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
     browser.pause(2000);
     postPage.createRap();
-    Login.logout();
+    Login.logoutNewsfeed();    
     //User 2
     browser.pause(2000);
     Login.login(testData.login.user2,testData.login.user2PW);
@@ -559,7 +559,7 @@ describe("WeShop - NewsFeed", ()=> {
     browser.pause(2000);
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
     browser.pause(2000);
     //User 3
     Login.login(testData.login.user3,testData.resetEmail.pw);
@@ -577,7 +577,7 @@ describe("WeShop - NewsFeed", ()=> {
     browser.pause(2000);
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
   })
 
   it("Verify that comments added to own posts are displayed in Newsfeed",()=>{
@@ -625,7 +625,7 @@ describe("WeShop - NewsFeed", ()=> {
     postPage.createQue();
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
     //User 2
     browser.url(testData.weshop.homeurl);
     browser.pause(2000);
@@ -648,7 +648,7 @@ describe("WeShop - NewsFeed", ()=> {
     browser.pause(2000);
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
     browser.pause(2000);
     //User 3
     browser.url(testData.weshop.homeurl);
@@ -675,7 +675,7 @@ describe("WeShop - NewsFeed", ()=> {
     browser.pause(2000);
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
   })
 
   it("Verify that comments added to own questions are displayed in Newsfeed",()=>{
@@ -828,7 +828,7 @@ describe("WeShop - Account",()=>{
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
     browser.pause(2000);
-    Login.logout();
+    Login.logoutNewsfeed();    
   })
 
   it("Verify that reset password email is delivered instantly to the registered user's email",()=>{
@@ -995,7 +995,7 @@ describe("WeShop - Share",()=>{
     console.log("Logged-in user's Post" +s);
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
     browser.url(s);
     Login.emailOrUsername.waitForVisible();
     Login.emailOrUsername.click();
@@ -1057,7 +1057,7 @@ describe("WeShop - Share",()=>{
     productPage.crossProfileIcon.click();
     newsFeed.logo.waitForVisible();
     newsFeed.logo.click();
-    Login.logout();
+    Login.logoutNewsfeed();    
     browser.url(s);
     Login.emailOrUsername.waitForVisible();
     Login.emailOrUsername.click();

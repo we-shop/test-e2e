@@ -9,7 +9,7 @@ import gmail from '../page-objects/gmail.page'
 class Login extends Page{
 
     get logInPageBtn(){
-        return $(".sc-1v1uga8-10.gUkcAx.navigation-buttons .sc-1ggrumc-0.iuuklY .sc-1v1uga8-7.cObbhT");
+        return $(".btn.btn-outline-primary>span");
     }
 
     get emailOrUsername(){
@@ -25,7 +25,7 @@ class Login extends Page{
     }
 
     get clickToContinueBtn(){
-        return $(".sc-1ggrumc-0.lnHdUD");
+        return $(".btn.btn-primary");
     }
 
     get peopleYouMayKnow(){
@@ -52,8 +52,12 @@ class Login extends Page{
         return $(".white-wrapper:nth-child(2) .ocus78-1.eTeGUs.dark:nth-child(12)")
     }
 
+    logout(index){
+        return $(`.text-end.text-md-start .mb-3.d-block:nth-child(${index})`)
+    }
+
     get welcomeText(){
-        return $(".header >h1")
+        return $(".w-100.mx-auto.pt-5.pb-1.text-center .pb-5>span")
     }
 
     settingPage(index){
@@ -366,25 +370,23 @@ class Login extends Page{
         this.clickToContinueBtn.click();
     }
     
-    logout(){
+    logoutNewsfeed(){
         browser.pause(2000);
-        this.setting.waitForVisible();
-        this.setting.click();
         browser.waitUntil(
             function() {
               return (
                 browser.isVisible(
-                  '.white-wrapper:nth-child(2) .ocus78-1.eTeGUs.dark:nth-child(12)'
+                  '.text-end.text-md-start .mb-3.d-block:nth-child(3)'
                 ) === true
               );
             },
             60000,
             "add item input field not visible even after 10s"
           );
-        this.logOut.waitForVisible();
-        this.logOut.click();
-        homePage.welcome.waitForVisible();
-        expect(homePage.welcome.getText()).to.eql(testData.weshop.hometitle);
+        this.logout(3).waitForVisible();
+        this.logout(3).click();
+        this.welcomeText.waitForVisible();
+        expect(this.welcomeText.getText()).to.eql(testData.login.welcome);
     }
     
     resetEmail() {

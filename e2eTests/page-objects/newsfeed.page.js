@@ -5,7 +5,7 @@ import testData from "../constants/testData.json";
 class newsfeed extends Page{
 
     get logo(){
-        return $(".nav-main-logo.nav-main-item")
+        return $(".flex-grow-1.w-100.position-relative.d-flex")
     }
 
     get createPost(){

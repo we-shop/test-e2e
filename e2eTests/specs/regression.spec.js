@@ -458,6 +458,9 @@ describe("Search",()=>{
 
   it("Verify that default view is displayed every time the user tries to search for a new product",()=>{
     browser.pause(2000);
+    newsFeed.logo.waitForVisible();
+    newsFeed.logo.click();
+    browser.pause(2000);
     filterPage.serachBar.waitForVisible();
     filterPage.serachBar.setValue([testData.product.name, 'Enter']);
     browser.pause(2000);
@@ -3466,7 +3469,7 @@ describe("Account",()=>{
     expect(Login.chnageEmail.isEnabled()).to.eql(false);
   })
 
-  it("Verify that user is notified when email address is changed",()=>{
+  it.skip("Verify that user is notified when email address is changed",()=>{
     var e=Login.emailAddress.getText();
     var y = e.split(':')[1];
     browser.newWindow('http://www.yopmail.com/en/')
@@ -3477,7 +3480,7 @@ describe("Account",()=>{
     expect(gmail.emailChanged.getText()).to.eql(testData.resetEmail.chnagesEmail);
   })
 
-  it("Verify that user is notified when password is changed",()=>{
+  it.skip("Verify that user is notified when password is changed",()=>{
     browser.back();
     gmail.checkinbox_changeiframe_email([testData.resetEmail.email, 'Enter']);
     expect(gmail.emailChanged.getText()).to.eql(testData.resetEmail.chnagePw);

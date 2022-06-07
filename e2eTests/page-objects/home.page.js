@@ -17,7 +17,7 @@ get serachResults(){
 }
 
 get welcome(){
-    return $(".section-title")
+    return $(".title.mx-auto>span")
 }
 
 get searchField(){
