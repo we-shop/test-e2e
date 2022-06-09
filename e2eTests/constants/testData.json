@@ -154,7 +154,7 @@
 	"filter":{
         "minprice": "100",
 		"maxprice": "200",
-		"brand":"Boohoo",
+		"brand":"boohoo",
 		"brand1":"Zazzle",
 		"selectedbrand":"boohoo.com",
 		"selectedretailer":"Foyles",
@@ -165,7 +165,7 @@
 		"selectedRetailer1":"ASOS UK (63890)",
 		"suggestionBrand":"Brand",
 		"suggestioRetailer":"Retailer",
-		"retailerName":"Notion Press"
+		"retailerName":"Zavvi"
     },
 	
 	"post":{

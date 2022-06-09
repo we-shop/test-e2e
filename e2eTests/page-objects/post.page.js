@@ -3,13 +3,14 @@ import { expect } from 'chai';
 import testData from "../constants/testData.json";
 import Login from "../page-objects/login.page.js";
 import productPage from "./product.page";
+import filterPage from "./filter.page";
 
 const path=require("path");
 
 class Post extends Page{
 
 get plusIcon(){
-    return $(".sc-14o4777-0.cgntRS")
+    return $(".badge.rounded-pill.border-0.mt-2.d-block.shadow-lg")
 }
 
 get newsfeed(){
@@ -18,7 +19,7 @@ get newsfeed(){
 
 //get recommend()
 createPost(index){
-    return $(`.MuiPaper-root .MuiButtonBase-root.MuiListItem-root.MuiMenuItem-root:nth-child(${index})`)
+    return $(`.d-flex.align-items-center.justify-content-end:nth-child(${index}) .d-block.me-2.px-2.py-1.rounded`)
 }
 
 stepInRap(index){
@@ -49,8 +50,8 @@ addToPostRadioBtn(index){
     return $(`.sc-1jtvvdw-0.cHQRzR .sc-195fhah-0.gLSDob .ao51ir-0.lfyyWF:nth-child(${index}) .productItem .MuiIconButton-label`)
 }
 
-get nextBtn(){
-    return $(".sc-56f71l-0.iaChRu:nth-child(1)")
+nextBtn(index){
+    return $(`.text-center .text-nowrap.btn:nth-child(${index})`)
 }
 
 get productAaq(){
@@ -81,8 +82,8 @@ get textSize(){
     return $(".MuiSlider-root.MuiSlider-colorPrimary .MuiSlider-track")
 }
 
-get newPost(){
-    return $(".content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)")
+newPost(index){
+    return $(`.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(${index}) .post-wrapper>div>a>div>span`)
 }
 
 get like(){
@@ -294,7 +295,7 @@ get rapNextBtn(){ //After skiping the tagging the product step
 }
 
 get disabledNextBtn(){ //without adding single product checking disabled next Button
-    return $(".sc-56f71l-0.bBbvaW")
+    return $(".text-nowrap.btn.btn-primary.w-100.mb-2")
 }
 
 get aaqThirdStep(){
@@ -365,13 +366,21 @@ rapSteps(index){
     return $(`.sc-1hjjkgc-1.drskXq:nth-child(${index}) .sc-1hjjkgc-2.YldMF:nth-child(1)`)
 }
 
+get serachInRap(){
+    return $("input[placeholder='Search millions of products']")
+}
+
+get skipBtn(){
+    return $(".modal-footer .btn.btn-sm.btn-secondary")
+}
+
 get procutImgBtn(){ //Disabled as product is not selected
     return $(".sc-56f71l-0.bBbvaW:nth-child(1)")
 }
 
-get disabledNextBtn(){ //Without media user clicks on submit button and it's disabled
-    return $(".sc-56f71l-0.bBbvaW:nth-child(2)")
-}
+// get disabledNextBtn(){ //Without media user clicks on submit button and it's disabled
+//     return $(".sc-56f71l-0.bBbvaW:nth-child(2)")
+// }
 
 get addSomeMediaLabel(){
     return $(".buttons-container>p");
@@ -454,7 +463,7 @@ get playBtn(){
 }
 
 get selectPrdRap(){
-    return $(".content-container .ao51ir-0.lfyyWF:nth-child(5) .MuiFormControlLabel-root span.MuiButtonBase-root.MuiIconButton-root.jss15.MuiCheckbox-root.custom-checkbox-root.MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary .MuiIconButton-label .jss18")
+    return $(".create-post-results-wrapper .product-wrapper:nth-child(1) .column-wrapper .form-check-input.cursor-pointer.rounded-circle")
 }
 
 get hashTag(){
@@ -469,8 +478,12 @@ get videoIcon(){
    return $(".post-image .video-icon>img")
 }
 
-get uploadBtnForRap(){ //when one media is uploaded
-    return $(".element .sc-56f71l-0.iaChRu:nth-child(1)")
+cropBtn(index){
+    return $(`.d-flex.justify-content-between>button:nth-child(${index})`)
+}
+
+uploadBtnForRap(index){ //when one media is uploaded
+    return $(`.btn.btn-sm.btn-primary.btn-primary:nth-child(${index})`)
 }
 
 createQue(){
@@ -527,20 +540,14 @@ createQue(){
 }
 
 createRap(){
-    browser.waitUntil(
-        function() {
-          return (
-            browser.isVisible(
-              '.sc-1wfjojd-0.ceySuO.shadowed>h3'
-            ) === true
-          );
-        },
-        120000,
-        "add item input field not visible even after 10s"
-    );      
-    this.searchProductAaq.waitForVisible();
-    this.searchProductAaq.click();
-    this.searchProductAaq.setValue([testData.product.prdname1, 'Enter']);
+    this.plusIcon.waitForVisible();
+    this.plusIcon.click();
+    this.createPost(2).waitForVisible();
+    this.createPost(2).click();
+
+    this.serachInRap.waitForVisible();
+    this.serachInRap.click();
+    this.serachInRap.setValue([testData.product.prdname1, 'Enter']);
     // browser.waitUntil(
     //     function() {
     //       return (
@@ -554,27 +561,32 @@ createRap(){
     // );      
     this.selectPrdRap.waitForVisible();
     this.selectPrdRap.click();
-    this.nextBtn.waitForVisible();
-    this.nextBtn.click();
+    this.nextBtn(1).waitForVisible();
+    this.nextBtn(1).click();
     const toUpload = path.join(__dirname, "..", "resources", "laptop.jpeg");
-    browser.chooseFile('input[type="file"]', toUpload);    
-//Jenkins
-    browser.scroll(0,10000);        
-    this.saveBtn.waitForVisible();
-    this.saveBtn.click();
-    browser.pause(2000);
+    browser.chooseFile('input[type="file"]', toUpload);   
+    this.cropBtn(2).waitForVisible();
+    this.cropBtn(2).click();
     this.skipBtn.waitForVisible();
     this.skipBtn.click();
-    browser.pause(2000);
-    this.rapNextBtn.waitForVisible();
-    this.rapNextBtn.click();
-    browser.pause(2000);
-    this.nextBtn.waitForVisible();
-    this.nextBtn.click();
-    browser.scroll(0,1000);
-    this.newPost.waitForExist({ timeout: 6000 });
-    browser.moveToObject(".content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)")
-    expect(this.newPost.getText()).eql(testData.post.newRapPost);
+    browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.image-wrapper.rounded.border.overflow-hidden'
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+    );      
+    this.nextBtn(1).waitForVisible();
+    this.nextBtn(1).click();
+    this.nextBtn(1).waitForVisible();
+    this.nextBtn(1).click();
+    this.newPost(4).waitForExist({ timeout: 6000 });
+    browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4) .post-wrapper>div>a>div>span")
+    expect(this.newPost(4).getText()).eql(testData.post.newRapPost);
 }
 
 createRapForUpload(){

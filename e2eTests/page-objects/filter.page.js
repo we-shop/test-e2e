@@ -57,15 +57,15 @@ class Filter extends Page{
     }
 
     get brandOption(){
-        return $("input[placeholder='Brands']");
+        return $("input[placeholder='Filter by brands']");
     }
 
     get brandDropdown(){
-        return $("#brands-toggle-button .MuiSvgIcon-root")
+        return $(".dropdown.mb-3.filter-select.position-relative #brands-toggle-button")
     }
 
     get retailerDropdown(){
-        return $("#merchants-toggle-button .MuiSvgIcon-root")
+        return $(".dropdown.mb-3.filter-select.position-relative #merchants-toggle-button")
     }
 
     get brandDropIcon(){
@@ -129,7 +129,7 @@ class Filter extends Page{
     }
 
     get retailerOption(){
-        return $("input[placeholder='Retailers']")
+        return $("input[placeholder='Filter by retailers']")
     }
 
     get viewName(){
@@ -142,6 +142,10 @@ class Filter extends Page{
 
     get retailerSelect(){
         return $( "#merchants-item-1")
+    }
+
+    brandNameAfterFilter(index){
+        return $(`.mw-100.search-results-wrapper.rounded.list-view .product-wrapper.d-flex.justify-content-between.rounded.mb-3.pe-3.list-view.bg-white.border:nth-child(${index})  .brand.d-block.text-truncate`)
     }
 
     get retailerClick(){

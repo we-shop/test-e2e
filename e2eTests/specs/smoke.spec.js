@@ -185,7 +185,7 @@ describe("WeShop - filter", ()=>{
         Login.login(testData.login.username,testData.share.password);
         browser.pause(2000);
         filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue([testData.product.name, 'Enter']);
+        filterPage.serachBar.setValue([testData.product.prdname, 'Enter']);
         browser.pause(4000);
         product.showingResult.waitForVisible();
         expect(product.showingResult.isVisible()).to.eql(true);
@@ -208,7 +208,7 @@ describe("WeShop - filter", ()=>{
         function() {
           return (
             browser.isVisible(
-              '.title-container>h3'
+              '.search-results-wrapper'
             ) === true
           );
         },
@@ -217,7 +217,7 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.brandOption.waitForVisible();
         filterPage.brandOption.click();
-        filterPage.brandOption.addValue('b');
+        filterPage.brandOption.addValue('B');
         browser.waitUntil(
             function() {
               return (
@@ -231,14 +231,14 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.brandSelect.waitForVisible();
         filterPage.brandSelect.click();
-        filterPage.brandDropIcon.waitForVisible();
-        filterPage.brandDropIcon.click();
+        filterPage.brandDropdown.waitForVisible();
+        filterPage.brandDropdown.click();
         browser.scroll(0,100);
         browser.waitUntil(
           function() {
             return (
               browser.isVisible(
-                '.bottom-buttons .sc-56f71l-0.iaChRu:nth-child(1)'
+                '.btn.btn-primary.w-50.rounded.text-nowrap'
               ) === true
             );
           },
@@ -248,8 +248,9 @@ describe("WeShop - filter", ()=>{
         filterPage.updateResultsBtn.waitForVisible();
         filterPage.updateResultsBtn.click();
         browser.pause(2000);
-        filterPage.clearAll.waitForVisible();
-        filterPage.clearAll.click();
+        expect(filterPage.brandNameAfterFilter(1).getText()).to.eql(testData.filter.brand)
+        filterPage.clearAll(2).waitForVisible();
+        filterPage.clearAll(2).click();
     })
 
     it("Verify that the results matching to the selected retailer are displayed when the search is filtered", ()=>{
@@ -257,17 +258,17 @@ describe("WeShop - filter", ()=>{
         function() {
           return (
             browser.isVisible(
-              '.title-container>h3'
+              '.search-results-wrapper'
             ) === true
           );
         },
         60000,
         "add item input field not visible even after 10s"
-      );
+        );
         filterPage.retailerOption.waitForVisible();
         filterPage.retailerOption.waitForVisible();
         filterPage.retailerOption.click();
-        filterPage.retailerOption.addValue('b');
+        filterPage.retailerOption.addValue('Z');
         browser.waitUntil(
           function() {
             return (
@@ -281,16 +282,14 @@ describe("WeShop - filter", ()=>{
         );
         filterPage.retailerSelect2.waitForVisible();
         filterPage.retailerSelect2.click();
-        filterPage.retailerDropIcon.waitForVisible();
-        filterPage.retailerDropIcon.click();
-        filterPage.filterBlock.waitForVisible();
-        filterPage.filterBlock.click();
+        filterPage.retailerDropdown.waitForVisible();
+        filterPage.retailerDropdown.click();
         browser.scroll(0,100);
         browser.waitUntil(
           function() {
             return (
               browser.isVisible(
-                '.bottom-buttons .sc-56f71l-0.iaChRu:nth-child(1)'
+                '.btn.btn-primary.w-50.rounded.text-nowrap'
               ) === true
             );
           },
@@ -300,57 +299,56 @@ describe("WeShop - filter", ()=>{
         filterPage.updateResultsBtn.waitForVisible();
         filterPage.updateResultsBtn.click();
         browser.pause(2000);
-        productPage.retailerName.waitForVisible();
-        expect(productPage.retailerName.getText()).to.eql(testData.product.retailername);
-        browser.pause(2000);
-        newsFeed.logo.waitForVisible();
-        newsFeed.logo.click();
-        browser.pause(2000);
-        Login.logoutNewsfeed();
+        expect(filterPage.brandNameAfterFilter(1).getText()).to.eql(testData.filter.retailerName)
+        filterPage.clearAll(2).waitForVisible();
+        filterPage.clearAll(2).click();
+        Login.logOut.waitForVisible();
+        Login.logOut.click();
     })
 });
 
 describe("WeShop - Create post RAP", ()=>{
-  it("Verify that the user is redirected to the Recommend a product step when Recommend a product button is clicked",()=>{
+  it("Verify that post created using 'Recommend a product' option is displayed appropriately in Newsfeed.",()=>{
       Login.login(testData.login.username1,testData.login.userPw);
-      browser.pause(2000);
-      postPage.plusIcon.waitForVisible();
-      postPage.plusIcon.click();
-      postPage.createPost(1).waitForVisible();
-      postPage.createPost(1).waitForVisible();
-      expect(postPage.createPost(1).getText()).to.eql(testData.post.RAP);
-      postPage.createPost(1).click();
-      browser.pause(2000);
-      postPage.recommendProductHeading.waitForVisible();
-      expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
-  })
-
-  it("Verify that the Recommend a product post created by the user are displayed appropriately in Newsfeed",()=>{
       browser.pause(2000);
       postPage.createRap();
   })
 
+  it("Verify that the Recommend a product post created by the user are displayed appropriately in Newsfeed",()=>{
+    Login.login(testData.login.username1,testData.login.userPw);
+    browser.pause(2000);
+    postPage.plusIcon.waitForVisible();
+    postPage.plusIcon.click();
+    postPage.createPost(1).waitForVisible();
+    postPage.createPost(1).waitForVisible();
+    expect(postPage.createPost(1).getText()).to.eql(testData.post.RAP);
+    postPage.createPost(1).click();
+    browser.pause(2000);
+    postPage.recommendProductHeading.waitForVisible();
+    expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
+    browser.pause(2000);
+  })
+
   it("Verify that User is unable to submit the post without inlcuding a single product for RAP option",()=>{
+    Login.login(testData.login.username1,testData.login.userPw);
+//remove
       browser.pause(2000);
       postPage.plusIcon.waitForVisible();
       postPage.plusIcon.click();
-      postPage.createPost(1).waitForVisible();
-      postPage.createPost(1).waitForVisible();
-      expect(postPage.createPost(1).getText()).to.eql(testData.post.RAP);
-      postPage.createPost(1).click();
+      postPage.createPost(2).waitForVisible();
+      postPage.createPost(2).waitForVisible();
+      postPage.createPost(2).click();
       browser.pause(2000);
-      postPage.recommendProductHeading.waitForVisible();
-      expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
+      postPage.serachInRap.waitForVisible();
+      postPage.serachInRap.click();
+      postPage.serachInRap.setValue([testData.product.prdname1, 'Enter']);
       browser.pause(2000);
-      postPage.searchProductAaq.waitForVisible();
-      postPage.searchProductAaq.click();
-      postPage.searchProductAaq.setValue([testData.product.prdname, 'Enter']);
-      browser.pause(2000);
-      browser.scroll(0,200);
-      expect(postPage.disabledNextBtn.isVisible()).to.eql(true);
-      expect(postPage.nextBtn.isVisible()).to.eql(false);
-      postPage.discaredpostBtn.waitForVisible();
-      postPage.discaredpostBtn.click();
+      postPage.selectPrdRap.waitForVisible();
+      postPage.selectPrdRap.click();
+      postPage.nextBtn(1).waitForVisible();
+      postPage.nextBtn(1).click();
+      postPage.disabledNextBtn.waitForVisible();
+      expect(postPage.disabledNextBtn.isEnabled()).to.eql(false);
   })
 });
 

@@ -49,7 +49,7 @@ class Login extends Page{
     }
 
     get logOut(){
-        return $(".white-wrapper:nth-child(2) .ocus78-1.eTeGUs.dark:nth-child(12)")
+        return $(".d-none.d-md-block .material-icons-outlined")
     }
 
     logout(index){
