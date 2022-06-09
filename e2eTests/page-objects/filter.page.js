@@ -5,11 +5,11 @@ import testData from "../constants/testData.json";
 class Filter extends Page{
 
     get serachBar(){
-        return $("input[placeholder='Search WeShop']");
+        return $("#search-typeahead-top-pad-input")
     }
 
-    get suggestion(){
-        return $("#search-typeahead-item-1")
+    suggestion(index){
+        return $(`#search-typeahead-top-pad-menu>li:nth-child(${index})`)
     }
 
     gridViewPrd(index){
@@ -45,15 +45,15 @@ class Filter extends Page{
     }
 
     get minPrice(){
-        return $(" .filter-props div.sc-1jb845n-0.hnDRRX .maxMin-price:nth-child(1) .maxMin-price__item:nth-child(1) .MuiInputBase-root > .MuiInputBase-input.MuiOutlinedInput-input")
+        return $("input[placeholder='£ Min']")
     }
 
     get maxPrice(){
-        return $(" .filter-props div.sc-1jb845n-0.hnDRRX .maxMin-price:nth-child(1) .maxMin-price__item:nth-child(2) .MuiInputBase-root > .MuiInputBase-input.MuiOutlinedInput-input");
+        return $("input[placeholder='£ Max']");
     }
 
     get updateResultsBtn(){
-        return $(".bottom-buttons .sc-56f71l-0.iaChRu:nth-child(1)");
+        return $(".btn.btn-primary.w-50.rounded.text-nowrap");
     }
 
     get brandOption(){
@@ -136,8 +136,8 @@ class Filter extends Page{
         return $(".view-option .active>span")
     }
 
-    get clearAll(){
-        return $(".bottom-buttons .sc-56f71l-0.iaChRu:nth-child(2)")
+    clearAll(index){
+        return $(`.d-flex.flex-wrap.justify-content-end .btn.btn-sm.rounded.text-nowrap:nth-child(${index})`);
     }
 
     get retailerSelect(){

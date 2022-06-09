@@ -113,20 +113,20 @@ describe("WeShop - Search",()=>{
     it("Verify that appropriate search results when suggested search keyword in the Search field is selected",()=>{
         expect(newsFeed.logo.isVisible()).to.eql(true);
         filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue(testData.product.prdname);
+        filterPage.serachBar.setValue(testData.product.suggestion);
         browser.waitUntil(
           function() {
             return (
               browser.isVisible(
-                '#search-typeahead-item-1'
+                '#search-typeahead-top-pad-menu>li:nth-child(3)'
               ) === true
             );
           },
           60000,
           "add item input field not visible even after 10s"
         );
-        filterPage.suggestion.waitForVisible();
-        filterPage.suggestion.click();
+        filterPage.suggestion(3).waitForVisible();
+        filterPage.suggestion(3).click();
         browser.waitUntil(
             function() {
               return (
@@ -193,14 +193,14 @@ describe("WeShop - filter", ()=>{
         filterPage.updateResultsBtn.waitForVisible();
         filterPage.updateResultsBtn.click();
         browser.pause(2000);
-        productPage.price.waitForVisible();
-        var price1 = productPage.price.getText();
+        productPage.price(1).waitForVisible();
+        var price1 = productPage.price(1).getText();
         price1 = price1.split("£");
         price1 = price1[1];
         price1 = parseFloat(price1);
         expect(price2 >= price1).to.eql(true);
-        filterPage.clearAll.waitForVisible();
-        filterPage.clearAll.click();
+        filterPage.clearAll(2).waitForVisible();
+        filterPage.clearAll(2).click();
     })
 
     it("Verify that the results matching to the selected brand are displayed when the search is filtered", ()=>{

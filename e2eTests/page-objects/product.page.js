@@ -8,7 +8,7 @@ get productSuggestion(){
 }
 
 get showingResult(){
-    return $(".title-container>h3")
+    return $(".search-results-wrapper")
 }
 
 get resultCount(){
@@ -19,8 +19,8 @@ get editWishlistBtn(){
     return $(".card.wishlist-info.sticky .edit-delete-row:nth-child(1) .edit.image-text:nth-child(2)")
 }
 
-get price(){
-    return $(".sc-5wwmt8-1 .sc-5wwmt8-0:nth-child(2) .product-info:nth-child(2) > h3.price")
+price(index){
+    return $(`.pe-md-3 .product-wrapper.d-flex.justify-content-between.rounded:nth-child(${index}) .product-info.flex-grow-1.overflow-hidden.ps-3 > h5.price.m-0`)
 }
 
 get image(){
