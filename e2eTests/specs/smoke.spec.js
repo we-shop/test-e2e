@@ -69,16 +69,44 @@ describe("WeShop - Product",()=>{
     })
 
     it("Verify that the product price is displayed appropriately in the product details box", ()=>{
-        expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
-        browser.scroll(0,100);
-        product.price.waitForVisible();
-        expect(product.price.isVisible()).to.eql(true);
+        Login.login(testData.login.username,testData.share.password);
+        filterPage.serachBar.waitForVisible();
+        filterPage.serachBar.setValue([testData.product.name, 'Enter']);
+        browser.waitUntil(
+          function() {
+            return (
+              browser.isVisible(
+                '.pe-md-3 .product-wrapper.d-flex.justify-content-between.rounded:nth-child(1) '
+              ) === true
+            );
+          },
+          60000,
+          "add item input field not visible even after 10s"
+        );
+        expect(productPage.price(1).isVisible()).to.eql(true);
     })
-
-    it("Verify that the product name displayed appropriately", ()=>{
-        expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
-        expect(product.descp.isVisible()).to.eql(true);
+ 
+    it("Verify that the user is able to create the new wishlist when new wish list name is submitted in the create wishlist popup",()=>{
+      productPage.price(1).click();
+      productPage.wishlistBtn.waitForVisible();
+      productPage.wishlistBtn.click();
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.modal-header'
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+      );
+      productPage.addWishlistName.waitForVisible();
+      productPage.addWishlistName.addValue('shirt');
+      productPage.addBtnWishlist.waitForVisible();
+      productPage.addBtnWishlist.click();
     })
+   
 
     it("Verify that the user is able to copy the product link when copy link button is clicked", ()=>{
         expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
@@ -316,22 +344,10 @@ describe("WeShop - Create post RAP", ()=>{
 
   it("Verify that the Recommend a product post created by the user are displayed appropriately in Newsfeed",()=>{
     Login.login(testData.login.username1,testData.login.userPw);
-    browser.pause(2000);
-    postPage.plusIcon.waitForVisible();
-    postPage.plusIcon.click();
-    postPage.createPost(1).waitForVisible();
-    postPage.createPost(1).waitForVisible();
-    expect(postPage.createPost(1).getText()).to.eql(testData.post.RAP);
-    postPage.createPost(1).click();
-    browser.pause(2000);
-    postPage.recommendProductHeading.waitForVisible();
-    expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
-    browser.pause(2000);
+    postPage.createRap();
   })
 
   it("Verify that User is unable to submit the post without inlcuding a single product for RAP option",()=>{
-    Login.login(testData.login.username1,testData.login.userPw);
-//remove
       browser.pause(2000);
       postPage.plusIcon.waitForVisible();
       postPage.plusIcon.click();

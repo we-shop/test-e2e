@@ -159,6 +159,10 @@ get subtilte(){ //In product details page title means price, retailer
     return $(".sub-title")
 }
 
+get addWishlistName(){
+   return $("input[placeholder='Wishlist name']")
+}
+
 // get followerRadioBtn(){
 //     return $(".sc-13hahjp-0.gHNUpE .sort-desktop>li:nth-child(2)>p")
 // }
@@ -258,6 +262,14 @@ get sharePrice(){
 
 get totalWeshares(){
     return $(".share-price-graph.card .title")
+}
+
+get wishlistBtn(){
+    return $(".d-flex.flex-column.my-3 .save-wishlist-button.d-flex.align-items-center>span")
+}
+
+get addBtnWishlist(){
+    return $("//body/div[@id='modal-fade']/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]")
 }
 }
 

@@ -27,7 +27,7 @@ stepInRap(index){
 }
 
 get recommendProductHeading(){
-    return $(".sc-195fhah-1.cYJoca>h1")
+    return $(".d-flex>small")
 }
 
 get crossIcon(){

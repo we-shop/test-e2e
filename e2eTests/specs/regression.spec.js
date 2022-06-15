@@ -594,6 +594,11 @@ describe("Search",()=>{
 })
 
 describe("Filter",()=>{
+
+  it.skip("Verify that the product name displayed appropriately", ()=>{
+    expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
+    expect(product.descp.isVisible()).to.eql(true);
+})
   it("Verify that options displayed appropriately when user clicks on dropdown icons to filter result",()=>{
     browser.pause(2000);
     product.showingResult.waitForVisible();
