@@ -336,11 +336,6 @@ describe("WeShop - filter", ()=>{
 });
 
 describe("WeShop - Create post RAP", ()=>{
-  it("Verify that post created using 'Recommend a product' option is displayed appropriately in Newsfeed.",()=>{
-      Login.login(testData.login.username1,testData.login.userPw);
-      browser.pause(2000);
-      postPage.createRap();
-  })
 
   it("Verify that the Recommend a product post created by the user are displayed appropriately in Newsfeed",()=>{
     Login.login(testData.login.username1,testData.login.userPw);
