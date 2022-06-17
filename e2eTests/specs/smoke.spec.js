@@ -356,8 +356,7 @@ describe("WeShop - Create post RAP", ()=>{
       browser.pause(2000);
       postPage.selectPrdRap.waitForVisible();
       postPage.selectPrdRap.click();
-      postPage.nextBtn(1).waitForVisible();
-      postPage.nextBtn(1).click();
+      postPage.selectPrdRap.click();
       postPage.disabledNextBtn.waitForVisible();
       expect(postPage.disabledNextBtn.isEnabled()).to.eql(false);
   })
@@ -365,15 +364,53 @@ describe("WeShop - Create post RAP", ()=>{
 
 describe("WeShop - Create post AAQ - Asking about a specific product", ()=>{
 
-  it("Verify that the user is redirected to the Ask a Question step when Ask a question button is clicked",()=>{
+  it("Verify that question can be created without Media and Caption",()=>{
       browser.pause(2000);
       postPage.plusIcon.waitForVisible();
       postPage.plusIcon.click();
-      postPage.askAQuestion.waitForVisible();
-      expect(postPage.askAQuestion.getText()).to.eql(testData.post.AAQname);
-      postPage.askAQuestion.click();
-      browser.pause(2000);
-      expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.AAQ);
+      postPage.createPost(1).waitForVisible();
+      postPage.createPost(1).waitForVisible();
+      postPage.createPost(1).click();
+      expect(postPage.aaqHeading.getText()).to.eql(testData.post.aaqHeading);
+      postPage.aaqHelpMeText.waitForVisible();
+      postPage.aaqHelpMeText.click();
+      postPage.aaqHelpMeText.setValue('help me to find cool bag');
+      postPage.uploadForAaq(1).waitForVisible();
+      postPage.uploadForAaq(1).click();
+      browser.scroll(0,300);
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.cursor-pointer.position-relative.color-wrapper:nth-child(11)'
+            ) === true
+          );
+        },
+        200000,
+        "add item input field not visible even after 10s"
+      );
+      postPage.backgroundBtnAaq(2).waitForVisible();
+      postPage.backgroundBtnAaq(2).click();
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100'
+            ) === true
+          );
+        },
+        200000,
+        "add item input field not visible even after 10s"
+      );
+      postPage.nextBtn.waitForVisible();
+      postPage.nextBtn.click();
+      postPage.nextBtn.waitForVisible();
+      postPage.nextBtn.click();
+      postPage.nextBtn.waitForVisible();
+      postPage.nextBtn.click();
+      postPage.newPost(4).waitForExist({ timeout: 6000 });
+    browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4) .post-wrapper>div>a>div>span")
+    expect(postPage.newPost(4).getText()).eql(testData.post.newpost);
   })
 
   it("Verify that question created about a specific product is displayed appropriately in Newsfeed", ()=>{

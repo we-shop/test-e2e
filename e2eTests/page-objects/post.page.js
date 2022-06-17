@@ -50,8 +50,8 @@ addToPostRadioBtn(index){
     return $(`.sc-1jtvvdw-0.cHQRzR .sc-195fhah-0.gLSDob .ao51ir-0.lfyyWF:nth-child(${index}) .productItem .MuiIconButton-label`)
 }
 
-nextBtn(index){
-    return $(`.text-center .text-nowrap.btn:nth-child(${index})`)
+get nextBtn(){//AAQ 
+    return $(".d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100")
 }
 
 get productAaq(){
@@ -67,7 +67,7 @@ get closePost(){
 }
 
 get aaqHelpMeText(){
-    return $(".question-editor-caption__container >textarea")
+    return $("#edit-question-textarea")
 }
 
 textColor(index){
@@ -252,6 +252,10 @@ get selectedFilterName1(){
 
 get editCaption(){ //AAQ post
     return $(".l6j9c5-1.eRwHjm:nth-child(2)")
+}
+
+get aaqHeading(){
+    return $(".d-flex >div>h6")
 }
 
 get suggestion(){
@@ -484,6 +488,21 @@ cropBtn(index){
 
 uploadBtnForRap(index){ //when one media is uploaded
     return $(`.btn.btn-sm.btn-primary.btn-primary:nth-child(${index})`)
+}
+
+uploadForAaq(index){
+    return $(`.text-center.cursor-pointer.d-flex.flex-column.align-items-center.justify-content-center:nth-child(${index})`)
+}
+
+backgroundBtnAaq(index){
+    return $(`.d-flex.justify-content-between>button:nth-child(${index})`)
+}
+
+createQuWithoutMedia(){
+    this.aaqHelpMeText.waitForVisible();
+    this.aaqHelpMeText.click();
+    this.aaqHelpMeText.setValue('help me to find cool bag');
+
 }
 
 createQue(){
