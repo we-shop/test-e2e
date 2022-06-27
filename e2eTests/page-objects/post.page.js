@@ -103,7 +103,7 @@ get likeCounter(){
 }
 
 postNewsfeed(index){
-    return $(`.content-block:nth-child(${index})`)
+    return $(`.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(${index})`)
 }
 
 get askAQuestion(){
@@ -494,68 +494,161 @@ uploadForAaq(index){
     return $(`.text-center.cursor-pointer.d-flex.flex-column.align-items-center.justify-content-center:nth-child(${index})`)
 }
 
+backGroungImage(index){
+    return $(`.cursor-pointer.position-relative.color-wrapper:nth-child(${index})`)
+}
+
 backgroundBtnAaq(index){
     return $(`.d-flex.justify-content-between>button:nth-child(${index})`)
 }
 
-createQuWithoutMedia(){
+productInAaq(index){
+    return $(`.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(${index}) .product-wrapper`)
+}
+
+get crossIcon(){//RAP cross icon
+    return $(".d-flex.justify-content-between.py-4.px-3.bg-white.border-bottom .material-icons-outlined")
+}
+
+createQuWithProduct(){
+    browser.pause(2000);
+    this.plusIcon.waitForVisible();
+    this.plusIcon.click();
+    this.createPost(1).waitForVisible();
+    this.createPost(1).waitForVisible();
+    this.createPost(1).click();
+    expect(this.aaqHeading.getText()).to.eql(testData.post.aaqHeading);
     this.aaqHelpMeText.waitForVisible();
     this.aaqHelpMeText.click();
     this.aaqHelpMeText.setValue('help me to find cool bag');
-
-}
-
-createQue(){
-    this.uploadBtn.waitForVisible();
-    this.uploadBtn.click();
-    browser.pause(4000);
-    this.saveBtn.waitForVisible();
-    this.saveBtn.click();
-    browser.pause(4000);
-    this.saveBtn.waitForVisible();
-    this.saveBtn.click();
-    browser.pause(4000);
-    this.aaqHelpMeText.waitForVisible();
-    this.aaqHelpMeText.click();
-    this.aaqHelpMeText.setValue('help');
- //Jenkins
-    browser.scroll(0,10000);    
-    this.saveBtn.waitForVisible();
-    this.saveBtn.click();
+    this.uploadForAaq(1).waitForVisible();
+    this.uploadForAaq(1).click();
     browser.waitUntil(
       function() {
         return (
           browser.isVisible(
-            '.sc-56f71l-0.iaChRu:nth-child(1)'
+            '.cursor-pointer.position-relative.color-wrapper:nth-child(3)>img'
           ) === true
         );
       },
-      60000,
+      300000,
+      "add item input field not visible even after 10s"
+    );
+    this.backGroungImage(3).waitForVisible();
+    this.backGroungImage(3).click();
+    this.backgroundBtnAaq(2).waitForVisible();
+    this.backgroundBtnAaq(2).click();
+    browser.pause(5000); 
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100'
+          ) === true
+        );
+      },
+      200000,
       "add item input field not visible even after 10s"
     );
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
-    browser.pause(4000);
+    this.serachInRap.waitForVisible();
+    this.serachInRap.click();
+    this.serachInRap.setValue([testData.product.prdname1, 'Enter']);
+    this.selectPrdRap.waitForVisible();
+    this.selectPrdRap.click();
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
-    browser.pause(4000);
-    this.nextBtn.waitForVisible();
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
-      browser.scroll(0,1000);
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4)'
+          ) === true
+        );
+      },
+      200000,
+      "add item input field not visible even after 10s"
+    );
+    // this.newPost(4).waitForExist({ timeout: 6000 });
+    //browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(6)", 20,20)
+    browser.execute(function() {
+      document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+    })
+    //browser.scroll(0,200)
+    expect(this.productInAaq(5).isVisible()).to.eql(true);
+    expect(this.newPost(5).getText()).eql(testData.post.newpost);
+
+}
+
+createQue(){
+      browser.pause(2000);
+      this.plusIcon.waitForVisible();
+      this.plusIcon.click();
+      this.createPost(1).waitForVisible();
+      this.createPost(1).waitForVisible();
+      this.createPost(1).click();
+      expect(this.aaqHeading.getText()).to.eql(testData.post.aaqHeading);
+      this.aaqHelpMeText.waitForVisible();
+      this.aaqHelpMeText.click();
+      this.aaqHelpMeText.setValue('help me to find cool bag');
+      this.uploadForAaq(1).waitForVisible();
+      this.uploadForAaq(1).click();
+      browser.scroll(0,300);
       browser.waitUntil(
         function() {
           return (
             browser.isVisible(
-              '.content-block:nth-child(3)'
+              '.cursor-pointer.position-relative.color-wrapper:nth-child(3)>img'
             ) === true
           );
         },
-        60000,
+        300000,
         "add item input field not visible even after 10s"
-      );      
-      browser.moveToObject(".content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)")
-      expect(this.newPost.getText()).eql(testData.post.newpost);
+      );
+      this.backGroungImage(3).waitForVisible();
+      this.backGroungImage(3).click();
+      this.backgroundBtnAaq(2).waitForVisible();
+      this.backgroundBtnAaq(2).click();
+      browser.pause(5000); 
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100'
+            ) === true
+          );
+        },
+        200000,
+        "add item input field not visible even after 10s"
+      );
+      this.nextBtn.waitForVisible();
+      this.nextBtn.click();
+      
+      this.nextBtn.waitForVisible();
+      this.nextBtn.click();
+      this.nextBtn.waitForVisible();
+      this.nextBtn.click();
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4)'
+            ) === true
+          );
+        },
+        200000,
+        "add item input field not visible even after 10s"
+      );
+      // this.newPost(4).waitForExist({ timeout: 6000 });
+      //browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(6)", 20,20)
+      browser.execute(function() {
+        document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+      })
+      //browser.scroll(0,200)
+      expect(this.newPost(5).getText()).eql(testData.post.newpost);
 }
 
 createRap(){
@@ -563,7 +656,6 @@ createRap(){
     this.plusIcon.click();
     this.createPost(2).waitForVisible();
     this.createPost(2).click();
-
     this.serachInRap.waitForVisible();
     this.serachInRap.click();
     this.serachInRap.setValue([testData.product.prdname1, 'Enter']);
@@ -580,8 +672,8 @@ createRap(){
     // );      
     this.selectPrdRap.waitForVisible();
     this.selectPrdRap.click();
-    this.nextBtn(1).waitForVisible();
-    this.nextBtn(1).click();
+    this.nextBtn.waitForVisible();
+    this.nextBtn.click();
     const toUpload = path.join(__dirname, "..", "resources", "laptop.jpeg");
     browser.chooseFile('input[type="file"]', toUpload);   
     this.cropBtn(2).waitForVisible();
@@ -599,13 +691,25 @@ createRap(){
         60000,
         "add item input field not visible even after 10s"
     );      
-    this.nextBtn(1).waitForVisible();
-    this.nextBtn(1).click();
-    this.nextBtn(1).waitForVisible();
-    this.nextBtn(1).click();
-    this.newPost(4).waitForExist({ timeout: 6000 });
-    browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4) .post-wrapper>div>a>div>span")
-    expect(this.newPost(4).getText()).eql(testData.post.newRapPost);
+    this.nextBtn.waitForVisible();
+    this.nextBtn.click();
+    this.nextBtn.waitForVisible();
+    this.nextBtn.click();
+    browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)'
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+        );      
+        browser.execute(function() {
+        document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+        })
+    expect(this.newPost(5).getText()).eql(testData.post.newRapPost);
 }
 
 createRapForUpload(){
@@ -678,8 +782,10 @@ createRapForUpload(){
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
     browser.scroll(0,1000);
-    this.newPost.waitForExist({ timeout: 6000 });
-    browser.moveToObject(".content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)")
+    this.newPost(4).waitForExist({ timeout: 6000 });
+    browser.execute(function() {
+        document.querySelector('.content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)').scrollIntoView()
+      })
     expect(this.newPost.getText()).eql(testData.post.newRapPost);
 }
 

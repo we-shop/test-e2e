@@ -108,8 +108,8 @@ class Login extends Page{
         return $("input[placeholder='Repeat new password']")
     }
 
-    get changePwBtn(){
-        return $(".sc-56f71l-0.iaChRu")
+    get addCmtBtn(){
+        return $(".material-icons-outlined.p-1")
     }
 
     get chnageEmailBtn(){
@@ -141,11 +141,11 @@ class Login extends Page{
     }
 
     get visitProfile(){
-        return $(".ocus78-1.eTeGUs.accent.mobile-component")
+        return $(".position-absolute.edit-button.btn-outline-primary.rounded.px-2.d-md-none.d-lg-block")
     }
 
     get editProfileHeading(){
-        return $(".diihmy-2.TzjXq.settings-section>h1")
+        return $(".bg-white.p-3.rounded.border:nth-child(1) .d-flex >a:nth-child(1)>div .ms-2.mb-0>span")
     }
 
     get changePhoto(){
@@ -161,7 +161,7 @@ class Login extends Page{
     }
 
     get firstName(){
-        return $(".MuiFormControl-root.MuiTextField-root.sc-81oy72-0.kOYlWr .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-fullWidth > input.MuiInputBase-input.MuiOutlinedInput-input")
+        return $(".bg-white.p-3.rounded.border  .form-row:nth-child(1) .form-control.ws-height-input:nth-child(1)")
     }
 
     get lastName(){
@@ -309,7 +309,7 @@ class Login extends Page{
     }
 
     get saveBtnEnabled(){  //Enabled save button
-        return $(".sc-56f71l-0.iaChRu.blue")
+        return $(".btn.btn-primary>span")
     }
 
     followerUsers(index){ 
@@ -324,8 +324,12 @@ class Login extends Page{
         return $(".b9xfa1-0.gBarNF .name");
     }
 
+    get profileDetailsCloseBtn(){
+        return $(".btn-close")
+    }
+
     get profileDetailsPopup(){
-        return $(".MuiSnackbarContent-message.message")
+        return $(".flex-grow-1.text-break.m-0.pe-4.text-info")
     }
 
     get unfollowBtn(){
@@ -346,6 +350,10 @@ class Login extends Page{
 
     get backBtn(){
         return $(".sc-9jt9lg-0.eiUGAE .link")
+    }
+
+    get logoutOnComments(){
+        return $(".d-none.d-md-block .material-icons-outlined")
     }
     
     login(email,password){

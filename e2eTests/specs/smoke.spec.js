@@ -48,25 +48,6 @@ describe("WeShop - Login", () => {
 });
 
 describe("WeShop - Product",()=>{
-    it("Verify that the searched product name is displayed below the header Eg: showing results for Shirts", ()=>{
-        Login.login(testData.login.username,testData.share.password);
-        filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue([testData.product.name, 'Enter']);
-        browser.waitUntil(
-            function() {
-              return (
-                browser.isVisible(
-                  '.title-container .results-quantity'
-                ) === true
-              );
-            },
-            60000,
-            "add item input field not visible even after 10s"
-        );
-        expect(product.resultCount.isVisible()).to.eql(true);
-        product.showingResult.waitForVisible();
-        expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
-    })
 
     it("Verify that the product price is displayed appropriately in the product details box", ()=>{
         Login.login(testData.login.username,testData.share.password);
@@ -108,30 +89,10 @@ describe("WeShop - Product",()=>{
     })
    
 
-    it("Verify that the user is able to copy the product link when copy link button is clicked", ()=>{
-        expect(product.showingResult.getText()).to.eql(testData.product.showinfresult);
-        product.product1.waitForVisible();
-        product.product1.click();
-        browser.pause(2000);
-        product.share.waitForVisible();
-        product.share.click();
-        browser.waitUntil(
-            function() {
-              return (
-                browser.isVisible(
-                  '.modal-share-buttons__label'
-                ) === true
-              );
-            },
-            60000,
-            "add item input field not visible even after 10s"
-        );
-        var s=browser.getValue('.copy-link-input');
-        browser.url(s);
-        browser.pause(2000);
-        product.weShopLogo.waitForVisible();
-        product.weShopLogo.click();
-        expect(newsFeed.logo.isVisible()).to.eql(true);
+    
+
+    it("Verify that the eBay home page is displayed when the user click on the 'Browse more products' button",()=>{
+
     })
     
 });
@@ -359,178 +320,30 @@ describe("WeShop - Create post RAP", ()=>{
       postPage.selectPrdRap.click();
       postPage.disabledNextBtn.waitForVisible();
       expect(postPage.disabledNextBtn.isEnabled()).to.eql(false);
+      postPage.crossIcon.waitForVisible();
+      postPage.crossIcon.click();
+
   })
 });
 
 describe("WeShop - Create post AAQ - Asking about a specific product", ()=>{
 
   it("Verify that question can be created without Media and Caption",()=>{
-      browser.pause(2000);
-      postPage.plusIcon.waitForVisible();
-      postPage.plusIcon.click();
-      postPage.createPost(1).waitForVisible();
-      postPage.createPost(1).waitForVisible();
-      postPage.createPost(1).click();
-      expect(postPage.aaqHeading.getText()).to.eql(testData.post.aaqHeading);
-      postPage.aaqHelpMeText.waitForVisible();
-      postPage.aaqHelpMeText.click();
-      postPage.aaqHelpMeText.setValue('help me to find cool bag');
-      postPage.uploadForAaq(1).waitForVisible();
-      postPage.uploadForAaq(1).click();
-      browser.scroll(0,300);
-      browser.waitUntil(
-        function() {
-          return (
-            browser.isVisible(
-              '.cursor-pointer.position-relative.color-wrapper:nth-child(11)'
-            ) === true
-          );
-        },
-        200000,
-        "add item input field not visible even after 10s"
-      );
-      postPage.backgroundBtnAaq(2).waitForVisible();
-      postPage.backgroundBtnAaq(2).click();
-      browser.waitUntil(
-        function() {
-          return (
-            browser.isVisible(
-              '.d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100'
-            ) === true
-          );
-        },
-        200000,
-        "add item input field not visible even after 10s"
-      );
-      postPage.nextBtn.waitForVisible();
-      postPage.nextBtn.click();
-      postPage.nextBtn.waitForVisible();
-      postPage.nextBtn.click();
-      postPage.nextBtn.waitForVisible();
-      postPage.nextBtn.click();
-      postPage.newPost(4).waitForExist({ timeout: 6000 });
-    browser.moveToObject(".bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4) .post-wrapper>div>a>div>span")
-    expect(postPage.newPost(4).getText()).eql(testData.post.newpost);
+      postPage.createQue();
+  })
+
+  it("Verify that time stamp of the edited post is updated with the edited time",()=>{
+
+    var edited= postPage.newPost.getText();
+    var y = edited.split('• ')
+    var g=y[1];
+   expect(g).to.eql(testData.post.editedPost);
   })
 
   it("Verify that question created about a specific product is displayed appropriately in Newsfeed", ()=>{
-      browser.pause(2000);
-      postPage.createQue();
-  })
-});
-
-describe("WeShop - Create a post AAQ - Looking for recommendations?", ()=>{
-
-  it("Verify that question created about a recommendation is displayed appropriately in Newsfeed",()=>{
-    browser.pause(2000);
-    postPage.plusIcon.waitForVisible();
-    postPage.plusIcon.click();
-    browser.pause(2000);
-    postPage.askAQuestion.waitForVisible();
-    expect(postPage.askAQuestion.getText()).to.eql(testData.post.AAQname);
-    postPage.askAQuestion.click();
-    browser.scroll(0,200);
-    postPage.nextBtn.waitForVisible();
-    const toUpload = path.join(__dirname, "..", "resources", "laptop.jpeg");
-    console.log(toUpload);  
-    browser.chooseFile('input[type="file"]', toUpload);    
-    browser.pause(5000);
-    postPage.saveBtn.waitForVisible();
-    postPage.saveBtn.click();
-    browser.pause(4000);
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.dialog-header'
-          ) === true
-        );
-      },
-      120000,
-      "add item input field not visible even after 10s"
-    );
-    postPage.aaqHelpMeText.waitForVisible();
-    postPage.aaqHelpMeText.click();
-    postPage.aaqHelpMeText.setValue('help');
-    browser.pause(2000);
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.sc-56f71l-0.iaChRu.blue'
-          ) === true
-        );
-      },
-      60000,
-      "add item input field not visible even after 10s"
-    );
-    postPage.saveBtn.waitForVisible();
-    postPage.saveBtn.click();
-    browser.pause(2000);
-    browser.scroll(0,200);
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.sc-1hjjkgc-1.drskXq:nth-child(2) .sc-1hjjkgc-2.YldMF'
-          ) === true
-        );
-      },
-      120000,
-      "add item input field not visible even after 10s"
-    );
-    postPage.productAaq.waitForVisible();
-    postPage.productAaq.click();
-    browser.pause(2000);
-    postPage.searchProductAaq.waitForVisible();
-    postPage.searchProductAaq.click();
-    postPage.searchProductAaq.setValue([testData.product.prdname, 'Enter']);
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.sc-1jtvvdw-0.cHQRzR .sc-195fhah-0.gLSDob .ao51ir-0.lfyyWF:nth-child(5) .productItem .MuiIconButton-label'
-          ) === true
-        );
-      },
-      60000,
-      "add item input field not visible even after 10s"
-    );      
-    postPage.selectPrdAaq.waitForVisible();
-    postPage.selectPrdAaq.click();
-    browser.scroll(0,200);
-    browser.pause(2000);
-    postPage.nextBtn.waitForVisible();
-    postPage.nextBtn.click();
-    browser.pause(2000);
-    postPage.nextBtn.waitForVisible();
-    postPage.nextBtn.click();
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.content-block:nth-child(1)'
-          ) === true
-        );
-      },
-      120000,
-      "add item input field not visible even after 10s"
-    );    
-    browser.scroll(0,1000);
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)'
-          ) === true
-        );
-      },
-      120000,
-      "add item input field not visible even after 10s"
-    );    
-    expect(postPage.newPost.getText()).eql(testData.post.newpost);
-    browser.pause(2000);
-    Login.logoutNewsfeed();    
+    postPage.createQuWithProduct();
+    Login.logOut.waitForVisible();
+    Login.logOut.click();
   })
 });
 
@@ -538,214 +351,157 @@ describe("WeShop - NewsFeed", ()=> {
 
   it("Verify that feed is displayed appropriately when user scrolls through Newsfeed",()=>{
       //User 1
-      Login.login(testData.login.username1,testData.login.userPw);
+      Login.login(testData.login.user3,testData.resetEmail.pw);
       browser.waitUntil(
-          function() {
-            return (
-              browser.isVisible(
-                '.content-block:nth-child(2)'
-              ) === true
-            );
-          },
-          60000,
-          "add item input field not visible even after 10s"
+        function() {
+          return (
+            browser.isVisible(
+              '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(4)'
+            ) === true
+          );
+        },
+        120000,
+        "add item input field not visible even after 10s"
       );
-      browser.scroll(0,1000);
-      expect(postPage.postNewsfeed(3).isVisible()).to.eql(true);
+      postPage.postNewsfeed(5).scroll();
+      //browser.execute(function() {
+      //document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+      //})
+      expect(postPage.postNewsfeed(5).isVisible()).to.eql(true);
       browser.scroll(0,500);
-      expect(postPage.postNewsfeed(4).isVisible()).to.eql(true);
-  })
+      expect(postPage.postNewsfeed(6).isVisible()).to.eql(true);
+      browser.scroll(0,500);
+      expect(postPage.postNewsfeed(7).isVisible()).to.eql(true);
+    })
 
   it("Verify that comments added to posts by other users are displayed in Newsfeed",()=>{
-    browser.pause(2000);
-    postPage.plusIcon.waitForVisible();
-    postPage.plusIcon.click();
-    postPage.createPost(1).waitForVisible();
-    postPage.createPost(1).waitForVisible();
-    expect(postPage.createPost(1).getText()).to.eql(testData.post.RAP);
-    postPage.createPost(1).click();
-    browser.pause(2000);
-    postPage.recommendProductHeading.waitForVisible();
-    expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.RAPHeading);
-    browser.pause(2000);
-    postPage.createRap();
-    Login.logoutNewsfeed();    
     //User 2
+    // browser.scroll(0,0);
+    //   browser.waitUntil(
+    //   function() {
+    //     return (
+    //       browser.isVisible(
+    //         '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(9)'
+    //       ) === true
+    //     );
+    //   },
+    //   60000,
+    //   "add item input field not visible even after 10s"
+    // );
+    browser.execute(function() {
+      document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(8)').scrollIntoView()
+    })
+    newsFeed.addComment(8).waitForVisible();
+    newsFeed.addComment(8).click();
     browser.pause(2000);
-    Login.login(testData.login.user2,testData.login.user2PW);
+    var comment = "try RAP post";
+    newsFeed.writeCmt.waitForVisible();
+    newsFeed.writeCmt.click();
+    newsFeed.writeCmt.setValue(comment);
+    Login.addCmtBtn.waitForVisible();
+    Login.addCmtBtn.click();
     browser.pause(2000);
+    newsFeed.postedComment(1).waitForVisible();
+    expect(newsFeed.postedComment(1).getText()).to.eql(comment);
+    Login.logoutOnComments.waitForVisible();
+    Login.logoutOnComments.click();
+    //User 3
+    Login.login(testData.login.username1,testData.login.userPw);
     browser.waitUntil(
       function() {
         return (
           browser.isVisible(
-            '.content-block:nth-child(2)'
+            '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(9)'
           ) === true
         );
       },
       60000,
       "add item input field not visible even after 10s"
     );
-    browser.scroll(0,1000);
-    postPage.newPost.waitForExist({ timeout: 6000 });
-    browser.moveToObject(".content-block:nth-child(3) .sc-16juea8-0.dZRJah.header .info >div>span:nth-child(2)")
-    browser.pause(2000);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
-    var comment = "try weshop RAP post";
-    newsFeed.writeCmt.waitForVisible();
-    newsFeed.writeCmt.click();
-    newsFeed.writeCmt.setValue(comment);
-    browser.pause(2000);
-    Login.changePwBtn.waitForVisible();
-    Login.changePwBtn.click();
-    browser.pause(2000);
-    browser.scroll(0,200);
-    newsFeed.postedComment.waitForVisible();
-    expect(newsFeed.postedComment.getText()).to.eql(comment);
-    browser.pause(2000);
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
-    Login.logoutNewsfeed();    
-    browser.pause(2000);
-    //User 3
-    Login.login(testData.login.user3,testData.resetEmail.pw);
-    browser.pause(2000);
-    browser.scroll(0,1000);
-    postPage.newPost.waitForVisible();
-    expect(postPage.newPost.isVisible()).eql(true);
-    browser.pause(2000);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
-    browser.pause(2000);
-    browser.scroll(0,200);
-    newsFeed.postedComment.waitForVisible();
-    expect(newsFeed.postedComment.getText()).to.eql(comment);
-    browser.pause(2000);
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
-    Login.logoutNewsfeed();    
+    browser.execute(function() {
+      document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(8)').scrollIntoView()
+    })
+    newsFeed.addComment(8).waitForVisible();
+    newsFeed.addComment(8).click();
+    newsFeed.postedComment(1).waitForVisible();
+    expect(newsFeed.postedComment(1).getText()).to.eql(comment); 
   })
 
   it("Verify that comments added to own posts are displayed in Newsfeed",()=>{
     //Own User who created post
-    Login.login(testData.login.username1,testData.login.userPw);
-    browser.pause(2000);
+    var comment = "thanks for weshop";
+    newsFeed.writeCmt.waitForVisible();
+    newsFeed.writeCmt.click();
+    newsFeed.writeCmt.setValue(comment);
+    Login.addCmtBtn.waitForVisible();
+    Login.addCmtBtn.click();
+    newsFeed.postedComment(2).waitForVisible();
+    expect(newsFeed.postedComment(2).getText()).to.eql(comment); 
+  })
+
+  it("Verify that comments added to questions by other users are displayed in Newsfeed",()=>{
+    //User 2
+    Login.login(testData.login.user3,testData.resetEmail.pw);
     browser.waitUntil(
       function() {
         return (
           browser.isVisible(
-            '.content-block:nth-child(2)'
+            '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(6)'
           ) === true
         );
       },
       60000,
       "add item input field not visible even after 10s"
     );
-    browser.scroll(0,1000);
-    expect(postPage.newPost.isVisible()).eql(true);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
-    var comment = "own user comment to RAP";
-    newsFeed.writeCmt.waitForVisible();
-    newsFeed.writeCmt.click();
-    newsFeed.writeCmt.setValue(comment);
-    browser.pause(2000);
-    Login.changePwBtn.waitForVisible();
-    Login.changePwBtn.click();
-    browser.pause(2000);
-    browser.scroll(0,200);
-    newsFeed.ownUserComment.waitForVisible();
-    expect(newsFeed.ownUserComment.getText()).to.eql(comment);
-  })
-
-  it("Verify that comments added to questions by other users are displayed in Newsfeed",()=>{
-    browser.pause(2000);
-    postPage.plusIcon.waitForVisible();
-    postPage.plusIcon.click();
-    postPage.askAQuestion.waitForVisible();
-    expect(postPage.askAQuestion.getText()).to.eql(testData.post.AAQname);
-    postPage.askAQuestion.click();
-    browser.pause(2000);
-    expect(postPage.recommendProductHeading.getText()).to.eql(testData.post.AAQ);
-    browser.pause(2000);
-    postPage.createQue();
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
-    Login.logoutNewsfeed();    
-    //User 2
-    browser.url(testData.weshop.homeurl);
-    browser.pause(2000);
-    Login.login(testData.login.user2,testData.login.user2PW);
-    browser.pause(20000);
-    browser.scroll(0,1000);
-    expect(postPage.newPost.isVisible()).eql(true);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
+    browser.execute(function() {
+      document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+    })
+    newsFeed.addComment(5).waitForVisible();
+    newsFeed.addComment(5).click();
     browser.pause(2000);
     var comment = "try weshop AAQ";
     newsFeed.writeCmt.waitForVisible();
     newsFeed.writeCmt.click();
     newsFeed.writeCmt.setValue(comment);
-    Login.changePwBtn.waitForVisible();
-    Login.changePwBtn.click();
+    Login.addCmtBtn.waitForVisible();
+    Login.addCmtBtn.click();
     browser.pause(2000);
-    newsFeed.postedComment.waitForVisible();
-    expect(newsFeed.postedComment.getText()).to.eql(comment);
-    browser.pause(2000);
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
-    Login.logoutNewsfeed();    
-    browser.pause(2000);
+    newsFeed.postedComment(1).waitForVisible();
+    expect(newsFeed.postedComment(1).getText()).to.eql(comment);
+    Login.logoutOnComments.waitForVisible();
+    Login.logoutOnComments.click();
     //User 3
-    browser.url(testData.weshop.homeurl);
-    browser.pause(2000);
-    Login.login(testData.login.user3,testData.resetEmail.pw);
+    Login.login(testData.login.username1,testData.login.userPw);
     browser.waitUntil(
       function() {
         return (
           browser.isVisible(
-            '.content-block:nth-child(2)'
+            '.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(6)'
           ) === true
         );
       },
       60000,
       "add item input field not visible even after 10s"
     );
-    browser.scroll(0,1000);
-    expect(newsFeed.addComment.isVisible()).eql(true);
-    browser.pause(2000);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
-    newsFeed.postedComment.waitForVisible();
-    expect(newsFeed.postedComment.getText()).to.eql(comment);
-    browser.pause(2000);
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
-    Login.logoutNewsfeed();    
+    browser.execute(function() {
+      document.querySelector('.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(5)').scrollIntoView()
+    })
+    newsFeed.addComment(5).waitForVisible();
+    newsFeed.addComment(5).click();
+    newsFeed.postedComment(1).waitForVisible();
+    expect(newsFeed.postedComment(1).getText()).to.eql(comment); 
   })
 
   it("Verify that comments added to own questions are displayed in Newsfeed",()=>{
     //Own User who created post
-    Login.login(testData.login.username1,testData.login.userPw);
-    browser.pause(2000);
-    browser.scroll(0,500);
-    postPage.newPost.waitForVisible();
-    expect(postPage.newPost.isVisible()).eql(true);
-    newsFeed.addComment.waitForVisible();
-    newsFeed.addComment.click();
-    var comment = "own user comment AAQ";
+    var comment = "thanks";
     newsFeed.writeCmt.waitForVisible();
     newsFeed.writeCmt.click();
     newsFeed.writeCmt.setValue(comment);
-    Login.changePwBtn.waitForVisible();
-    Login.changePwBtn.click();
-    browser.pause(2000);
-    browser.scroll(0,1000);
-    newsFeed.ownUserComment.waitForVisible();
-    expect(newsFeed.ownUserComment.getText()).to.eql(comment);
-    browser.pause(2000);
-    newsFeed.logo.waitForVisible();
-    newsFeed.logo.click();
+    Login.addCmtBtn.waitForVisible();
+    Login.addCmtBtn.click();
+    newsFeed.postedComment(2).waitForVisible();
+    expect(newsFeed.postedComment(2).getText()).to.eql(comment); 
   })
 });
 
@@ -981,31 +737,33 @@ describe("WeShop - Account",()=>{
 });
 
 describe("WeShop - Profile",()=>{
-  it("Verify that user is redirected to the Edit profile Information step when Edit profile button is tapped", ()=>{
+  it("Verify that Profile details updated successfully when user makes changes and tap on 'Save changes' button", ()=>{
       Login.login(testData.resetEmail.resetEmailUn,testData.share.password);
-      browser.pause(2000);
       browser.waitUntil(
         function() {
           return (
             browser.isVisible(
-              '.settings-button-small'
+              '.position-absolute.edit-button.btn-outline-primary.rounded.px-2.d-md-none.d-lg-block'
             ) === true
           );
         },
         60000,
         "add item input field not visible even after 10s"
       );
-      Login.setting.waitForVisible();
-      Login.setting.click();
-      browser.pause(2000);
       Login.visitProfile.waitForVisible();
       Login.visitProfile.click();
       expect(Login.editProfileHeading.getText()).to.eql(testData.profile.edit);
-      Login.backBtn.waitForVisible();
-      Login.backBtn.click();
-      browser.pause(2000);
-      newsFeed.logo.waitForVisible();
-      newsFeed.logo.click();
+      Login.firstName.waitForVisible();
+      Login.firstName.setValue("smita");
+      browser.execute(function() {
+        document.querySelector('.btn.btn-primary>span').scrollIntoView()
+        })
+      Login.saveBtnEnabled.waitForVisible();
+      Login.saveBtnEnabled.click();
+      Login.profileDetailsPopup.waitForVisible();
+      expect(Login.profileDetailsPopup.getText()).to.eql(testData.profile.profileDetails)
+      Login.profileDetailsCloseBtn.waitForVisible();
+      Login.profileDetailsCloseBtn.click();
   })
 });
 

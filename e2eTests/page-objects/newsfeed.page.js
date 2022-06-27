@@ -40,8 +40,8 @@ class newsfeed extends Page{
         return $(".sc-56f71l-0.iaChRu")
     }
 
-    get postedComment(){
-        return $(".comment__primary__content__text .bky81h-0.gEOQom >span:nth-child(1)")
+    postedComment(index){
+        return $(`.post-comments-wrapper .comments-container .mb-3:nth-child(${index}) .post-text`)
     }
 
     get ownUserComment(){
@@ -60,8 +60,8 @@ class newsfeed extends Page{
         return $(".sc-1gpmt38-0:nth-child(2) .sc-1gpmt38-1.MaIzJ>div:nth-child(2) .bky81h-0");
     }
 
-    get addComment(){
-        return $(".main-column .content-block:nth-child(3) .actions>a>div>img")
+    addComment(index){
+        return $(`.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(${index}) .pe-1.material-icons-outlined`)
     }
 
     get addCmtTwo(){
@@ -121,7 +121,7 @@ class newsfeed extends Page{
     }
 
     get writeCmt(){
-        return $("textarea[placeholder='Write comment here...']")
+        return $("textarea[placeholder='Add a comment']")
     }
 
     get postWishlistCmt(){
