@@ -8,6 +8,9 @@ import postPage from '../page-objects/post.page.js';
 import product from '../page-objects/product.page.js'
 import productPage from '../page-objects/product.page.js';
 import gmail from '../page-objects/gmail.page'
+import { filter } from 'rxjs-compat/operator/filter';
+import newsfeedPage from '../page-objects/newsfeed.page';
+import sharePage from '../page-objects/share.page.js';
 
 var price2=200;
 var emailResert,h;
@@ -52,12 +55,12 @@ describe("WeShop - Product",()=>{
     it("Verify that the product price is displayed appropriately in the product details box", ()=>{
         Login.login(testData.login.username,testData.share.password);
         filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue([testData.product.name, 'Enter']);
+        filterPage.serachBar.setValue([testData.product.prdname, 'Enter']);
         browser.waitUntil(
           function() {
             return (
               browser.isVisible(
-                '.pe-md-3 .product-wrapper.d-flex.justify-content-between.rounded:nth-child(1) '
+                '.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(3)'
               ) === true
             );
           },
@@ -65,6 +68,8 @@ describe("WeShop - Product",()=>{
           "add item input field not visible even after 10s"
         );
         expect(productPage.price(1).isVisible()).to.eql(true);
+        expect(productPage.price(2).isVisible()).to.eql(true);
+        expect(productPage.price(3).isVisible()).to.eql(true);
     })
  
     it("Verify that the user is able to create the new wishlist when new wish list name is submitted in the create wishlist popup",()=>{
@@ -82,17 +87,73 @@ describe("WeShop - Product",()=>{
         60000,
         "add item input field not visible even after 10s"
       );
-      productPage.addWishlistName.waitForVisible();
-      productPage.addWishlistName.addValue('shirt');
-      productPage.addBtnWishlist.waitForVisible();
-      productPage.addBtnWishlist.click();
+      //productPage.addWishlistName.waitForVisible();
+      //productPage.addWishlistName.addValue('shirt');
+      //productPage.addBtnWishlist.waitForVisible();
+      //productPage.addBtnWishlist.click();
+      // browser.waitUntil(
+      //   function() {
+      //     return (
+      //       browser.isVisible(
+      //         '.text-truncate-multiline-3.mw-100'
+      //       ) === true
+      //     );
+      //   },
+      //   120000,
+      //   "add item input field not visible even after 10s"
+      // );
+      productPage.wishlistBtn.waitForVisible();
+      //productPage.wishlistBtn.click();
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.bg-light.rounded.p-3.mt-2:nth-child(1)>div>span'
+            ) === true
+          );
+        },
+        120000,
+        "add item input field not visible even after 10s"
+      );
+      //expect(productPage.wishlistName.getText()).to.eql(testData.product.name);
+      Login.profileDetailsCloseBtn.waitForVisible();
+      Login.profileDetailsCloseBtn.click();
+      browser.back();
     })
    
-
-    
-
     it("Verify that the eBay home page is displayed when the user click on the 'Browse more products' button",()=>{
-
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(3) '
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+      );
+      browser.execute(function() {
+        document.querySelector('.ebay-merchants.border.w-100.bg-white.rounded.p-2.d-flex.align-items-center.flex-wrap').scrollIntoView()
+      })
+      productPage.browseEbay.waitForVisible();
+      productPage.browseEbay.click();
+      var tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[1]); 
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '#gh-logo'
+            ) === true
+          );
+        },
+        120000,
+        "add item input field not visible even after 10s"
+      );
+      expect(browser.getUrl()).contains('https://www.ebay.co.uk/?mkcid=1&mkrid')
+      browser.close();
+      browser.back()
     })
     
 });
@@ -100,84 +161,53 @@ describe("WeShop - Product",()=>{
 describe("WeShop - Search",()=>{
 
     it("Verify that appropriate search results when suggested search keyword in the Search field is selected",()=>{
-        expect(newsFeed.logo.isVisible()).to.eql(true);
-        filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue(testData.product.suggestion);
+        const selector = productPage.searchBar.getValue();
+        const backSpaces = new Array(selector.length).fill('Backspace');
+        productPage.searchBar.setValue(backSpaces);
+        productPage.searchBar.waitForVisible();
+        productPage.searchBar.setValue(testData.product.suggestion);
+        browser.pause(3000);
+        filterPage.suggestion(3).waitForVisible();
+        filterPage.suggestion(3).click();
         browser.waitUntil(
           function() {
             return (
               browser.isVisible(
-                '#search-typeahead-top-pad-menu>li:nth-child(3)'
+                '.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(3) '
               ) === true
             );
           },
           60000,
           "add item input field not visible even after 10s"
         );
-        filterPage.suggestion(3).waitForVisible();
-        filterPage.suggestion(3).click();
-        browser.waitUntil(
-            function() {
-              return (
-                browser.isVisible(
-                  '.title-container .results-quantity'
-                ) === true
-              );
-            },
-            60000,
-            "add item input field not visible even after 10s"
-        );
-        expect(product.resultCount.isVisible()).to.eql(true);
-        product.showingResult.waitForVisible();
-        expect(product.showingResult.getText()).to.eql(testData.product.resultforbag);
+        expect(productPage.retailerName(3).getText()).to.eql(testData.product.retailerSuggestionName);
     })
 
     it("Verify that appropriate search results when a keyword is entered in the Search field",()=>{
-        newsFeed.logo.waitForVisible();
-        newsFeed.logo.click();
-        filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue([testData.product.prdname1, 'Enter']);
-        browser.waitUntil(
-            function() {
-              return (
-                browser.isVisible(
-                  '.title-container .results-quantity'
-                ) === true
-              );
-            },
-            60000,
-            "add item input field not visible even after 10s"
-        );
-        expect(product.resultCount.isVisible()).to.eql(true);
-        browser.waitUntil(
-            function() {
-              return (
-                browser.isVisible(
-                  '.title-container>h3'
-                ) === true
-              );
-            },
-            60000,
-            "add item input field not visible even after 10s"
-        );
-        product.showingResult.waitForVisible();
-        expect(product.showingResult.getText()).to.eql(testData.product.resultforhat);
-        browser.pause(1000);
-        newsFeed.logo.waitForVisible();
-        newsFeed.logo.click();
-        Login.logoutNewsfeed();    
+      const selector = productPage.searchBar.getValue();
+      const backSpaces = new Array(selector.length).fill('Backspace');
+      productPage.searchBar.setValue(backSpaces);
+      productPage.searchBar.waitForVisible();
+      productPage.searchBar.setValue(testData.product.face);
+      filterPage.searchIcon.waitForVisible();
+      filterPage.searchIcon.click();
+      browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(3) '
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+      );
+      expect(productPage.title(1).getText()).contains('Facebook');   
     })
 });
 
 describe("WeShop - filter", ()=>{
     it("Verify that the results matching the specified price range are displayed when the search is filtered", ()=>{
-        Login.login(testData.login.username,testData.share.password);
-        browser.pause(2000);
-        filterPage.serachBar.waitForVisible();
-        filterPage.serachBar.setValue([testData.product.prdname, 'Enter']);
-        browser.pause(4000);
-        product.showingResult.waitForVisible();
-        expect(product.showingResult.isVisible()).to.eql(true);
         filterPage.filter(100,200);
         filterPage.updateResultsBtn.waitForVisible();
         filterPage.updateResultsBtn.click();
@@ -754,7 +784,7 @@ describe("WeShop - Profile",()=>{
       Login.visitProfile.click();
       expect(Login.editProfileHeading.getText()).to.eql(testData.profile.edit);
       Login.firstName.waitForVisible();
-      Login.firstName.setValue("smita");
+      Login.firstName.setValue("smia");
       browser.execute(function() {
         document.querySelector('.btn.btn-primary>span').scrollIntoView()
         })
@@ -766,6 +796,45 @@ describe("WeShop - Profile",()=>{
       Login.profileDetailsCloseBtn.click();
   })
 });
+
+describe("WeShop - Wishlist",()=>{
+  it("Verify that user is able to create wishlist from the profile wishlist page",()=>{
+    newsfeedPage.profileIcon.waitForVisible();
+    newsfeedPage.profileIcon.click();
+    sharePage.profileOptions(3).waitForVisible();
+    sharePage.profileOptions(3).click();
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible( 
+            '.text-center.p-2'
+          ) === true
+        );
+      },
+      60000,
+      "add item input field not visible even after 10s"
+      );
+  })
+  sharePage.createWishlistBtn.waitForVisible();
+  sharePage.createWishlistBtn.click();
+  browser.waitUntil(
+    function() {
+      return (
+        browser.isVisible( 
+          '.modal-header'
+        ) === true
+      );
+    },
+    60000,
+    "add item input field not visible even after 10s"
+  );
+  sharePage.createWishlitTextField.waitForVisible();
+  sharePage.createWishlitTextField.click();
+  sharePage.createWishlitTextField.setValue('bagg');
+  sharePage.saveAndCancleBtn(1).waitForVisible();
+  sharePage.saveAndCancleBtn(1).click();
+
+})
 
 describe("WeShop - Share",()=>{
 

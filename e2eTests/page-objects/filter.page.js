@@ -9,7 +9,7 @@ class Filter extends Page{
     }
 
     suggestion(index){
-        return $(`#search-typeahead-top-pad-menu>li:nth-child(${index})`)
+        return $(`#search-typeahead-pane-menu .dropdown-item.rounded:nth-child(${index})`)
     }
 
     gridViewPrd(index){
@@ -37,7 +37,7 @@ class Filter extends Page{
     }
 
     get searchIcon(){
-        return $(".sc-17wdton-0.eucxwj.jss4")
+        return $(".search-btn.btn.btn-outline-secondary.border-0.position-absolute  .material-icons-outlined")
     }
 
     get priceDownArrow(){

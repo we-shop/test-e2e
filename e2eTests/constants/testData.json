@@ -143,9 +143,10 @@
 		"deletedWishlistPopup":"Product removed from your wishlist",
 		"addBtn":"Add",
 		"removeBtn":"Remove",
-		"face":"facebook",
+		"face":"Facebook",
 		"otheuser":"nik",
 		"suggestion":"no",
+		"retailerSuggestionName":"Not On The High Street",
 		"deafultViewOption":"List View",
 		"grid":"Grid View",
 		"retailer":"Novatech"
@@ -154,7 +155,7 @@
 	"filter":{
         "minprice": "100",
 		"maxprice": "200",
-		"brand":"boohoo",
+		"brand":"Etsy",
 		"brand1":"Zazzle",
 		"selectedbrand":"boohoo.com",
 		"selectedretailer":"Foyles",

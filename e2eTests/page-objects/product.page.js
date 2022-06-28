@@ -15,24 +15,28 @@ get resultCount(){
     return $(".title-container .results-quantity")
 }
 
+suggestionName(index){
+    return $(`#search-typeahead-pane-menu .dropdown-item.rounded:nth-child(3) .text-truncate:nth-child(${index})`)
+}
+
 get editWishlistBtn(){
     return $(".card.wishlist-info.sticky .edit-delete-row:nth-child(1) .edit.image-text:nth-child(2)")
 }
 
 price(index){
-    return $(`.pe-md-3 .product-wrapper.d-flex.justify-content-between.rounded:nth-child(${index}) .product-info.flex-grow-1.overflow-hidden.ps-3 > h5.price.m-0`)
+    return $(`.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(${index}) .product-info>h5`)
 }
 
 get image(){
     return $(".sc-5wwmt8-1 .sc-5wwmt8-0:nth-child(2)>img")
 }
 
-get descp(){
-    return $(".sc-5wwmt8-1 .sc-5wwmt8-0:nth-child(2) .product-info:nth-child(2) > h3.title")
+title(index){
+    return $(`.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(${index}) .title`)
 }
 
-get retailerName(){
-    return $(".sc-5wwmt8-0.iKGBpl:nth-child(2) .brand")
+retailerName(index){
+    return $(`.mw-100.search-results-wrapper.rounded.list-view >div:nth-child(${index}) .brand.d-block.text-truncate`)
 }
 
 get product1(){
@@ -270,6 +274,18 @@ get wishlistBtn(){
 
 get addBtnWishlist(){
     return $("//body/div[@id='modal-fade']/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]")
+}
+
+get wishlistName(){
+    return $(".bg-light.rounded.p-3.mt-2:nth-child(1)>div>span")
+}
+
+get searchBar(){ //Already searched for a keyword
+    return $("#search-typeahead-pane-input")
+}
+
+get browseEbay(){
+    return $(".ebay-merchants.border.w-100.bg-white.rounded.p-2.d-flex.align-items-center.flex-wrap>div>a")
 }
 }
 

@@ -48,7 +48,7 @@ class Share extends Page{
     }
 
     profileOptions(index){
-        return $(`.pages-switch .option:nth-child(${index})`)
+        return $(`.bg-white.rounded.border.w-100.p-3.mb-3>div>span:nth-child(${index})`)
     }
 
     AplhCount() {
@@ -62,6 +62,18 @@ class Share extends Page{
 
     retailerAlphaText(index) {
         return $(`.retailers>div:nth-child(${index}) h3`)
+    }
+
+    get createWishlitTextField(){//Creating wishlist from profile
+        return $("input[placeholder='Wishlist name']")
+    }
+
+    get createWishlistBtn(){
+        return $(".btn.btn-primary.mt-2")
+    }
+
+    saveAndCancleBtn(){
+        return $(`.modal-footer >button:nth-child(${index})`)
     }
     
 getNextChar(char) {

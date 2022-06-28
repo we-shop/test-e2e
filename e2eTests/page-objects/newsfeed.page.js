@@ -263,6 +263,10 @@ class newsfeed extends Page{
     get nikPost(){
         return $(".content-block:nth-child(9)>div .info>div>span:nth-child(1)")
     }
+
+    get profileIcon(){
+        return $(".avatar-container>img")
+    }
 }
 
 export default new newsfeed();
