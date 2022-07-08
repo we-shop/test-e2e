@@ -3,8 +3,9 @@ import Login from "../page-objects/login.page.js";
 import newsFeed from '../page-objects/newsfeed.page';
 import gmail from '../page-objects/gmail.page';
 import testData from "../constants/testData.json"
+import filterPage from '../page-objects/filter.page.js';
 
-describe("WeShop - Login", () => {
+describe.skip("WeShop - Login", () => {
     
     it("Verify that user is able to login successfully using valid e-mail and password", ()=>{
         Login.login(testData.login.user1,testData.login.pw);
@@ -51,4 +52,18 @@ describe("WeShop - Login", () => {
     })
 
   
-  });
+
+});
+
+describe("WeShop - Search",()=>{
+
+   it("Verify that appropriate search results are displayed when a keyword is entered in the Search field",()=>{
+    Login.login(testData.login.user1,testData.login.pw);
+    newsFeed.logo.waitForVisible();
+    expect(newsFeed.logo.isVisible()).to.eql(true);
+    filterPage.serachBar.waitForVisible();
+    filterPage.serachBar.setValue([testData.product.prdname],'Enter');
+
+   })
+
+})

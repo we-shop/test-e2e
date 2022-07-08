@@ -5,7 +5,7 @@ import testData from "../constants/testData.json";
 class Filter extends Page{
 
     get serachBar(){
-        return $("#search-typeahead-top-pad-input")
+        return $(".d-none.d-md-block input[placeholder='Search millions of products']")
     }
 
     suggestion(index){
