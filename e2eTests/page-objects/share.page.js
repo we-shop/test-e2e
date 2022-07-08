@@ -72,13 +72,21 @@ class Share extends Page{
         return $(".btn.btn-primary.mt-2")
     }
 
-    saveAndCancleBtn(){
+    saveAndCancleBtn(index){
         return $(`.modal-footer >button:nth-child(${index})`)
     }
+
+    wihslistName(index){
+        return $(`.col-12.col-lg.ps-lg-3.flex-grow-1.position-relative:nth-child(2) .user-content.d-flex.flex-wrap div:nth-child(${index}) .card-body.info-wrapper > .text-truncate.m-0.cursor-pointer`)
+    }
+
+    get wishlistNameForValidation(){
+        return $(".col-12.col-lg.ps-lg-3.flex-grow-1.position-relative:nth-child(2) .user-content.d-flex.flex-wrap div:nth-child(2) .card-body.info-wrapper > .text-truncate.m-0.cursor-pointer")
+    }
     
-getNextChar(char) {
-  return String.fromCharCode(char.charCodeAt(0) + 1);
-}
+    getNextChar(char) {
+        return String.fromCharCode(char.charCodeAt(0) + 1);
+    }
 
     DiscoverAllRetailers() {
 

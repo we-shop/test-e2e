@@ -161,7 +161,7 @@ exports.config = {
     baseURL: "https://selenium-release.storage.googleapis.com",
     drivers: {
        chrome: {
-         version: "96.0.4664.18",
+         version: "100.0.4896.20",
          arch: process.arch,
          baseURL: "https://chromedriver.storage.googleapis.com"
        }

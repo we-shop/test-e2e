@@ -9,7 +9,7 @@ import gmail from '../page-objects/gmail.page'
 class Login extends Page{
 
     get logInPageBtn(){
-        return $(".btn.btn-outline-primary>span");
+        return $(".btn.btn-outline-secondary.ms-md-4>span");
     }
 
     get emailOrUsername(){
@@ -25,7 +25,7 @@ class Login extends Page{
     }
 
     get clickToContinueBtn(){
-        return $(".btn.btn-primary");
+        return $(".btn.btn-primary.w-100");
     }
 
     get peopleYouMayKnow(){
@@ -52,12 +52,16 @@ class Login extends Page{
         return $(".d-none.d-md-block .material-icons-outlined")
     }
 
-    logout(index){
-        return $(`.text-end.text-md-start .mb-3.d-block:nth-child(${index})`)
+    get logout(){
+        return $(".mb-3.d-block:nth-child(3)>span")
     }
 
     get welcomeText(){
         return $(".w-100.mx-auto.pt-5.pb-1.text-center .pb-5>span")
+    }
+
+    get welcomeBack(){//Login page
+        return $(".pb-5>span")
     }
 
     settingPage(index){
@@ -69,7 +73,7 @@ class Login extends Page{
     }
 
     get forgotPwField(){
-        return $("input[placeholder='Your email address']")
+        return $("input[placeholder='Email address']")
     }
 
     get homePage(){
@@ -213,7 +217,7 @@ class Login extends Page{
     }
 
     get resetPasswordLabel(){
-        return $(".form-row .reset-link")
+        return $(".text-decoration-underline")
     }
 
     get yopmail(){
@@ -357,7 +361,6 @@ class Login extends Page{
     }
     
     login(email,password){
-        browser.pause(2000);
         browser.url(testData.weshop.homeurl);
         if(this.cookieBtn.isVisible()){
             this.cookieBtn.click();
@@ -379,22 +382,21 @@ class Login extends Page{
     }
     
     logoutNewsfeed(){
-        browser.pause(2000);
         browser.waitUntil(
             function() {
               return (
                 browser.isVisible(
-                  '.text-end.text-md-start .mb-3.d-block:nth-child(3)'
+                  '.mb-3.d-block:nth-child(3)>span'
                 ) === true
               );
             },
             60000,
             "add item input field not visible even after 10s"
           );
-        this.logout(3).waitForVisible();
-        this.logout(3).click();
-        this.welcomeText.waitForVisible();
-        expect(this.welcomeText.getText()).to.eql(testData.login.welcome);
+        this.logout.waitForVisible();
+        this.logout.click();
+        this.welcomeBack.waitForVisible();
+        expect(this.welcomeBack.getText()).to.eql(testData.login.welcome);
     }
     
     resetEmail() {

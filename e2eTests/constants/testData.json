@@ -1,16 +1,16 @@
 {
 	"weshop": {
-		"homeurl":"https://uat.we.shop/",
+		"homeurl":"https://int.we.shop/",
 		"login":"https://uat.we.shop/s/login",
 		"newsfeed":"https://uat.we.shop/s/newsfeed/feed",
 		"resetpassword":"https://uat.we.shop/s/password/reset",
 		"home":"n",
-		"hometitle":"A Truly Shoppable Social Network, Owned by You."
+		"hometitle":"The first shoppable social network, owned by you."
     },
 
 	"login":{
 		"email":"smita@yopmail.com",
-		"username":"smitap",
+		"username":"gom-int",
 		"password":"ZO2c%omy",
 		"welcome":"Welcome back!",
 		"accountsetting":"Manage your credentials",
@@ -32,7 +32,7 @@
 		"username1":"fairy0007",
 		"userPw":"Passw0rd-",
 		"followersUser":"neil",
-		"user1":"jjj@yomail.cc"
+		"user1":"gom@yopmail.com"
 	},
 
 	"resetPwd":{
@@ -49,13 +49,14 @@
 	},
 
 	"resetEmail":{
-        "email":"test4@yopmail.com",
+        "email":"gom@yopmail.com",
 		"popup":"For this change to take effect, please follow the confirmation link emailed to you at yopee@yopmail.com - note that it may take up to a few minutes to receive the email",
 	    "successPopup":"Your email address has been updated.",
 		"resetEmailUn":"smitap",
 		"checkUn":"@smita",
 		"pw":"Smita@1235",
 		"reset":"@smitap",
+		"resetPwBtn":"Reset your password",
 		"chnagesEmail":"Email changed successfully",
 		"chnagePw":"Password changed successfully"
 	},
