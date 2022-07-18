@@ -25,7 +25,7 @@ class Login extends Page{
     }
 
     get clickToContinueBtn(){
-        return $(".btn.btn-primary.w-100");
+        return $(".btn.btn-primary.w-100>span");
     }
 
     get peopleYouMayKnow(){
@@ -137,7 +137,7 @@ class Login extends Page{
     }
 
     get cookieBtn(){
-        return $(".sc-1cwhfm1-1.eWnqOl.styled-button-wrapper .MuiButton-label")
+        return $(".accept")
     }
 
     get editProfileInfo(){
@@ -145,7 +145,7 @@ class Login extends Page{
     }
 
     get visitProfile(){
-        return $(".position-absolute.edit-button.btn-outline-primary.rounded.px-2.d-md-none.d-lg-block")
+        return $(".position-absolute.edit-button.btn-outline-primary.rounded.px-2.d-md-none.d-lg-block >span")
     }
 
     get editProfileHeading(){
@@ -165,7 +165,7 @@ class Login extends Page{
     }
 
     get firstName(){
-        return $(".bg-white.p-3.rounded.border  .form-row:nth-child(1) .form-control.ws-height-input:nth-child(1)")
+        return $("")
     }
 
     get lastName(){

@@ -12,20 +12,12 @@ class SignUp extends Page{
         return $(".header>h1")
     }
 
-    get firstName(){
-        return $("input[placeholder='Your first name']")
-    }
-
-    get userName(){
-        return $("input[placeholder='Enter username']")
+    get profileEdit(){ 
+        return $("input[placeholder='First name']")
     }
 
     get enteredUn(){
         return $(".MuiInputBase-input.MuiInput-input");
-    }
-
-    get lastName(){
-        return $("input[placeholder='Your last name']")
     }
 
     get email(){
@@ -66,6 +58,14 @@ class SignUp extends Page{
 
     get validYear(){
         return $(".MuiList-root:nth-child(1) .MuiButtonBase-root:nth-child(10)")
+    }
+
+    get profileDetailsPopupCloseIcon(){
+        return $(".btn-close")
+    }
+
+    get profilesDetailsPopup(){
+        return $(".flex-grow-1.text-break.m-0.pe-4.text-info")
     }
 
     get invaliAge(){

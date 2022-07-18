@@ -16,8 +16,8 @@ class Filter extends Page{
         return $(`.search-results-wrapper.grid-view .sc-5wwmt8-0.iKGBpl.for-grid-view:nth-child(${index})`)
     }
 
-    get viewPrice(){
-        return $(".search-results-wrapper :nth-child(2) .product-info .price")
+    viewPrice(index){
+        return $(`.pe-md-3.col-12 .product-wrapper.d-flex.justify-content-between.border:nth-child(${index}) .price.m-0`)
     }
 
     get viewRetailer(){
@@ -60,20 +60,16 @@ class Filter extends Page{
         return $("input[placeholder='Filter by brands']");
     }
 
-    get brandDropdown(){
-        return $(".dropdown.mb-3.filter-select.position-relative #brands-toggle-button")
-    }
-
     get retailerDropdown(){
         return $(".dropdown.mb-3.filter-select.position-relative #merchants-toggle-button")
     }
 
-    get brandDropIcon(){
-        return $("#brands-toggle-button .MuiSvgIcon-root:nth-child(1)")
+    get brandDropdown(){
+        return $("#brands-toggle-button >span")
     }
-
+    
     get retailerDropIcon(){
-        return $("#merchants-toggle-button .MuiSvgIcon-root:nth-child(1)")
+        return $("#merchants-toggle-button>span")
     }
     
     get wishlistBackBtn(){
@@ -122,6 +118,10 @@ class Filter extends Page{
 
     get retailerDownArrow(){
         return $(".search-filter .gbhan4-0.closed:nth-child(3)")
+    }
+
+    productName(index){
+        return $(`.pe-md-3.col-12 .product-wrapper.d-flex.justify-content-between.border:nth-child(${index}) .title.text-truncate`)
     }
 
     get noResults(){

@@ -32,7 +32,7 @@
 		"username1":"fairy0007",
 		"userPw":"Passw0rd-",
 		"followersUser":"neil",
-		"user1":"gom@yopmail.com"
+		"user1":"gom4@yopmail.com"
 	},
 
 	"resetPwd":{
@@ -49,7 +49,7 @@
 	},
 
 	"resetEmail":{
-        "email":"gom@yopmail.com",
+        "email":"gom4@yopmail.com",
 		"popup":"For this change to take effect, please follow the confirmation link emailed to you at yopee@yopmail.com - note that it may take up to a few minutes to receive the email",
 	    "successPopup":"Your email address has been updated.",
 		"resetEmailUn":"smitap",
