@@ -140,6 +140,14 @@ class SignUp extends Page{
         return $(".body-copy.page-error")
     }
 
+    settingOptions(index){
+        return $(`.bg-white.p-3.rounded.border:nth-child(1) .d-flex.flex-column >a:nth-child(${index})`)
+    }
+
+    get contactSupportBtn(){ //decativate account
+        return $(".btn.btn-primary")
+    }
+
     get selectGender(){
         return $(".form>div:nth-child(3)");
     }

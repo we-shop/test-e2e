@@ -25,8 +25,8 @@ class Page {
   randomName() {
     var text = "";
     var prefix = "";
-    var alphaNumeric = "uvwxyz0123456789";
-    var alphabets = "abcdefgswxyz";
+    var alphaNumeric = "uv";
+    var alphabets = "xyz";
     for (var i = 0; i < 5; i++)
       text += alphaNumeric.charAt(
         Math.floor(Math.random() * alphaNumeric.length)
@@ -34,6 +34,20 @@ class Page {
     prefix += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
     var ranNum = this.randomNumbers();
     return text + prefix + ranNum;
+  }
+
+  randomFirstNameInProfile() {
+    var text = "";
+    var prefix = "";
+    var alphaNumeric = "uv";
+    var alphabets = "xyz";
+    for (var i = 0; i < 5; i++)
+      text += alphaNumeric.charAt(
+        Math.floor(Math.random() * alphaNumeric.length)
+      );
+    prefix += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
+    // var ranNum = this.randomNumbers();
+    return text + prefix; //+ ranNum;
   }
 }
 

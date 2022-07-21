@@ -71,8 +71,8 @@ get postName(){
     return $(".sc-9jt9lg-0.eiUGAE >h2")
 }
 
-get searchPeopleOption(){
-    return $(".header-results-type >li:nth-child(2)")
+searchPeopleOption(index){
+    return $(`.search-results-wrapper.rounded.list-view>div .d-flex:nth-child(${index}) >a .info>span`)
 }
 
 get wishlistModal(){
@@ -195,6 +195,10 @@ get createWishlist(){
     return $("input[placeholder='Wishlist name']")
 }
 
+get createWishlistBtn(){//On profile page
+    return $(".btn.btn-primary.mt-2")
+}
+
 get addBtn(){ //Add a product to wishlist button
     return $(".title-button .sc-56f71l-0.iaChRu.purple-inverted.addRemove-button")
 }
@@ -268,6 +272,10 @@ get totalWeshares(){
     return $(".share-price-graph.card .title")
 }
 
+get saveBtn(){ //on profile page user is creating a wishlist
+    return $(".btn.btn-sm.btn-primary")
+}
+
 get wishlistBtn(){
     return $(".d-flex.flex-column.my-3 .save-wishlist-button.d-flex.align-items-center>span")
 }
@@ -276,8 +284,8 @@ get addBtnWishlist(){
     return $("//body/div[@id='modal-fade']/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]")
 }
 
-get wishlistName(){
-    return $(".bg-light.rounded.p-3.mt-2:nth-child(1)>div>span")
+get wishlistName(){ //In wishlist name in profile
+    return $(".flex-grow-1.position-relative:nth-child(2) .pb-3 div:nth-child(2) .text-truncate.cursor-pointer:nth-child(1)")
 }
 
 get searchBar(){ //Already searched for a keyword

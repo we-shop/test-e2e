@@ -216,6 +216,10 @@ class newsfeed extends Page{
         return $(".sc-1a9wc9e-12.hqiVfQ")
     }
 
+    get userNameAtNewsfeed(){
+        return $(".username")
+    }
+
     get editWishlistName(){
         return $(".columns-wrapper .edit-name.card > input:nth-child(2)")
     }

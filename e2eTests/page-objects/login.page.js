@@ -28,6 +28,10 @@ class Login extends Page{
         return $(".btn.btn-primary.w-100>span");
     }
 
+    get saveBtnInProfile(){
+        return $('//*[text()="Save"]')
+    }
+
     get peopleYouMayKnow(){
         return $(".u4v11l-2.kcwxTJ")
     }
@@ -380,6 +384,19 @@ class Login extends Page{
         this.clickToContinueBtn.waitForVisible();
         this.clickToContinueBtn.click();
     }
+
+    loginForShare(email,password){
+        this.emailOrUsername.waitForVisible();
+        this.emailOrUsername.click();
+        this.emailOrUsername.setValue(email);
+        this.password.waitForVisible();
+        this.password.click();
+        this.password.setValue(password);
+        browser.scroll(0,200);
+        browser.pause(4000);
+        this.clickToContinueBtn.waitForVisible();
+        this.clickToContinueBtn.click();
+    }
     
     logoutNewsfeed(){
         browser.waitUntil(
@@ -424,6 +441,12 @@ class Login extends Page{
         this.password.waitForVisible();
         this.password.click();
         this.password.setValue(password);
+    }
+
+
+      returnProfile(){
+        var names = testData.profile.firstname + this.randomFirstNameInProfile();
+        return names;
     }
 
 }

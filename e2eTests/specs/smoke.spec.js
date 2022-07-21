@@ -4,9 +4,12 @@ import newsFeed from '../page-objects/newsfeed.page';
 import gmail from '../page-objects/gmail.page';
 import testData from "../constants/testData.json"
 import filterPage from '../page-objects/filter.page.js';
-import { filter } from 'async';
 import postPage from '../page-objects/post.page.js';
 import signupPage from '../page-objects/signup.page.js';
+import productPage from '../page-objects/product.page.js';
+import loginPage from '../page-objects/login.page.js';
+import newsfeedPage from '../page-objects/newsfeed.page';
+import { use } from 'gulp-sequence';
 var minprice=100, maxprice=200;
 
 describe("WeShop - Login", () => {
@@ -54,16 +57,13 @@ describe("WeShop - Login", () => {
       );      
       expect(Login.setNewPwd.getText()).to.eql(testData.resetEmail.resetPwBtn);
     })
-
-  
-
 });
 
 describe("WeShop - Search",()=>{
 
    it("Verify that appropriate search results are displayed when a keyword is entered in the Search field",()=>{
-    //var tabIds = browser.getTabIds();
-    //browser.switchTab(tabIds[0]); 
+    var tabIds = browser.getTabIds();
+    browser.switchTab(tabIds[0]); 
     Login.login(testData.login.user1,testData.login.pw);
     newsFeed.logo.waitForVisible();
     expect(newsFeed.logo.isVisible()).to.eql(true);
@@ -121,7 +121,11 @@ describe("WeShop - Search",()=>{
       "add item input field not visible even after 10s"
     );  
     var d1=filterPage.productName(1).getText();
-    
+    if(d1.includes('Hat')){
+    console.log(true);}
+    else{
+    expect(false);
+    }
    })
 
 })
@@ -143,15 +147,21 @@ describe("WeShop - Filter",()=>{
       120000,
       "add item input field not visible even after 10s"
     );  
-    var d1=filterPage.viewPrice(1).getText();
-    console.log(d1)
-    expect(d1>=minprice & d1<=maxprice).to.eql(true);
+    var price1 = filterPage.viewPrice(1).getText();
+    var price2 = price1.split("£");
+    var l=price2[1]
+    expect(l<=minprice &l>=maxprice);
+    filterPage.clearAll(2).waitForVisible();
+    filterPage.clearAll(2).click();
   })
 
   it("Verify that the results matching the selected brand are displayed when the search is filtered  by selecting 'Brands'",()=>{
     filterPage.brandDropdown.waitForVisible();
     filterPage.brandDropdown.click();
     filterPage.brandSelect.waitForVisible()
+    var brandName=filterPage.brandSelect.getText();
+    var d=brandName.split('  ')
+    console.log(d)
     filterPage.brandSelect.click()
     filterPage.brandDropdown.waitForVisible();
     filterPage.brandDropdown.click();
@@ -168,18 +178,27 @@ describe("WeShop - Filter",()=>{
       120000,
       "add item input field not visible even after 10s"
     );  
-    var d1=filterPage.viewPrice(1).getText();
+    var d1=filterPage.productName(1).getText();
     console.log(d1)
-    if(st.includes('Bag')){
-      console.log(true);}
-      else{
-        expect(false); }  
+    if(d1.includes(brandName)){
+    var y=console.log(true);
+    console.log(true)
+    }
+    else{
+    console.log(false); 
+    } 
+    filterPage.clearAll(2).waitForVisible();
+    filterPage.clearAll(2).click();
+    // var f=d1.includes(d)
+    // console.log(f)
+    // expect(f).to.eql(true);
   })
 
   it("Verify that the results matching the selected retailer are displayed when the search is filtered  by selecting 'Brands'",()=>{
     filterPage.retailerDropIcon.waitForVisible();
     filterPage.retailerDropIcon.click();
-    filterPage.retailerSelect.waitForVisible()
+    filterPage.retailerSelect.waitForVisible();
+    var retailerName=filterPage.retailerSelect.getText();
     filterPage.retailerSelect.click()
     filterPage.retailerDropIcon.waitForVisible();
     filterPage.retailerDropIcon.click();
@@ -196,31 +215,147 @@ describe("WeShop - Filter",()=>{
       120000,
       "add item input field not visible even after 10s"
     );  
-    if(st.includes('Bag')){
+    var d1=filterPage.productName(1).getText();
+    console.log(d1);
+    if(d1.includes(retailerName)){
       console.log(true);}
-      else{
-        expect(false); }
+    else{
+      expect(false); 
+    } 
+    //expect(t).to.eql(true);
+})
+
+
+  
 })
 
 describe("Profile",()=>{
   
   it("Verify that Profile details updated successfully when user makes changes and tap on 'Save changes' button",()=>{
 
-  Login.login(testData.login.user1,testData.login.pw);
+    postPage.editProfileUserProfileIcon.waitForVisible();
+    postPage.editProfileUserProfileIcon.click();
   Login.visitProfile.waitForVisible();
   Login.visitProfile.click();
   signupPage.profileEdit.waitForVisible();
   signupPage.profileEdit.click()
-  signupPage.profileEdit.setValue(testData.profile.firstname)
-  browser.scroll(0,10000);
-  Login.clickToContinueBtn.waitForVisible();
-  Login.clickToContinueBtn.click();
+  var f=loginPage.returnProfile();
+  signupPage.profileEdit.setValue(f);
+  browser.scroll(0,2000)
+  Login.saveBtnInProfile.waitForVisible()
+  browser.pause(3000)
+  Login.saveBtnInProfile.click()
   signupPage.profilesDetailsPopup.waitForVisible();
   signupPage.profilesDetailsPopup.click();
   expect(signupPage.profilesDetailsPopup.getText()).to.eql(testData.profile.profileDetails);
   signupPage.profileDetailsPopupCloseIcon.waitForVisible();
   signupPage.profileDetailsPopupCloseIcon.click();
-})
+  
+  })
+
+   it("Verify that user is able to create wishlist from the profile wishlist page",()=>{
+  postPage.editProfileUserProfileIcon.waitForVisible();
+  postPage.editProfileUserProfileIcon.click();
+
+    filterPage.profilePage(3).waitForVisible();
+    filterPage.profilePage(3).click();
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.btn.btn-primary.mt-2'
+          ) === true
+        );
+      },
+      60000,
+      "add item input field not visible even after 10s"
+    );  
+    productPage.createWishlistBtn.waitForVisible();
+    productPage.createWishlistBtn.click();
+    productPage.createWishlist.waitForVisible();
+    productPage.createWishlist.click();
+    productPage.createWishlist.setValue('bag');
+    productPage.saveBtn.waitForVisible();
+    productPage.saveBtn.click();
+    loginPage.profileDetailsCloseBtn.waitForVisible();
+    loginPage.profileDetailsCloseBtn.click();
+    browser.pause(3000);
+    var e=productPage.wishlistName.getText()
+    var v1 = e.split('edit');
+    var t=v1[0];
+    expect(t).to.eql('bag ');
+  })
 
 })
+
+describe("WeShop - Share",()=>{
+
+  it("Verify that user can share profile of user when 'Copy' button is clicked in newsfeed under 'Invite your friends' section",()=>{
+    postPage.homeIcon(1).waitForVisible();
+    postPage.homeIcon(1).click();
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.earn-when.rounded.bg-white.border'
+          ) === true
+        );
+      },
+      120000,
+      "add item input field not visible even after 10s"
+    );  
+    var userName=newsfeedPage.userNameAtNewsfeed.getText();
+    var s=browser.getValue('.form-control.me-2');
+    loginPage.logout.waitForVisible();
+    loginPage.logout.click();
+    browser.url(s);
+    Login.loginForShare(testData.login.user4,testData.login.pw);
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.username'
+          ) === true
+        );
+      },
+      60000,
+      "add item input field not visible even after 10s"
+    );  
+    var userNameAtOtherPage=newsfeedPage.userNameAtNewsfeed.getText();
+    expect(userName).to.eql(userNameAtOtherPage)
+
+  })
+
+  it("Verify that user can share other user's profile when 'Share button is clicked",()=>{
+    postPage.serachInRap.waitForVisible();
+    postPage.serachInRap.setValue([testData.product.otheuser],'Enter');
+    filterPage.tabs(2).waitForVisible();
+    filterPage.tabs(2).click();
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '.search-results-wrapper.rounded.list-view>div .d-flex:nth-child(1) >a .info>span'
+          ) === true
+        );
+      },
+      120000,
+      "add item input field not visible even after 10s"
+    );  
+    productPage.searchPeopleOption(1).waitForVisible();
+    productPage.searchPeopleOption(1).click();
+
+  })
+
+})
+
+describe("Weshop - Account",()=>{
+
+  it("Verify that user is redirected to the support page when clicked on 'Contact support' button in deactivate account step",()=>{
+    signupPage.settingOptions(8).waitForVisible();
+    signupPage.settingOptions(8).click();
+   signupPage.contactSupportBtn.waitForVisible();
+   signupPage.contactSupportBtn.click();
+
+  })
 })

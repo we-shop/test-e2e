@@ -20,6 +20,10 @@ class Filter extends Page{
         return $(`.pe-md-3.col-12 .product-wrapper.d-flex.justify-content-between.border:nth-child(${index}) .price.m-0`)
     }
 
+    tabs(index){
+        return $(`.cursor-pointer.me-3.mb-0.search-type-title:nth-child(${index})`)
+    }
+
     get viewRetailer(){
         return $(".search-results-wrapper :nth-child(2) .product-info .brand")
     }
@@ -70,6 +74,10 @@ class Filter extends Page{
     
     get retailerDropIcon(){
         return $("#merchants-toggle-button>span")
+    }
+
+    profilePage(index){ //Posts, Questions, Wihslist
+        return $(`.bg-white.rounded.border.w-100.p-3.mb-3 .d-flex .tab-title.px-2.cursor-pointer:nth-child(${index})`)
     }
     
     get wishlistBackBtn(){
@@ -137,7 +145,7 @@ class Filter extends Page{
     }
 
     clearAll(index){
-        return $(`.d-flex.flex-wrap.justify-content-end .btn.btn-sm.rounded.text-nowrap:nth-child(${index})`);
+        return $(`.btn.btn-sm.rounded.text-nowrap:nth-child(${index})`);
     }
 
     get retailerSelect(){

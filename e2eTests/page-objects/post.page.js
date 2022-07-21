@@ -262,6 +262,10 @@ homeIcon(index){ // Your feed etc icons
     return $(`.left-pane.h-100 .header-wrapper .mt-5.d-flex.flex-column div:nth-child(${index}) .image-wrapper.rounded > .material-icons-outlined`) 
 }
 
+get editProfileUserProfileIcon(){
+    return $(".avatar-container.position-relative .rounded-circle")
+}
+
 suggestion(index){
     return $(`.dropdown-menu.rounded.mt-1.p-0.cursor-pointer.show .dropdown-item.rounded:nth-child(${index})`)
 }
