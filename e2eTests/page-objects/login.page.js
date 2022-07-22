@@ -56,8 +56,8 @@ class Login extends Page{
         return $(".d-none.d-md-block .material-icons-outlined")
     }
 
-    get logout(){
-        return $(".mb-3.d-block:nth-child(3)>span")
+    logout(index){ //Newsfeed options - setting,logout
+        return $(`.mb-3.d-block:nth-child(${index})>span`)
     }
 
     get welcomeText(){
@@ -410,8 +410,8 @@ class Login extends Page{
             60000,
             "add item input field not visible even after 10s"
           );
-        this.logout.waitForVisible();
-        this.logout.click();
+        this.logout(3).waitForVisible();
+        this.logout(3).click();
         this.welcomeBack.waitForVisible();
         expect(this.welcomeBack.getText()).to.eql(testData.login.welcome);
     }

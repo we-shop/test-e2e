@@ -10,7 +10,7 @@ const path=require("path");
 class Post extends Page{
 
 get plusIcon(){
-    return $(".badge.rounded-pill.border-0.mt-2.d-block.shadow-lg")
+    return $(".badge.rounded-pill.border-0.mt-2.d-block.shadow-lg .add-post-icon.py-1")
 }
 
 get newsfeed(){
@@ -19,7 +19,7 @@ get newsfeed(){
 
 //get recommend()
 createPost(index){
-    return $(`.d-flex.align-items-center.justify-content-end:nth-child(${index}) .d-block.me-2.px-2.py-1.rounded`)
+    return $(`.create-post-links-wrapper .d-flex.align-items-center.justify-content-end:nth-child(${index})>span`)
 }
 
 stepInRap(index){
@@ -51,7 +51,7 @@ addToPostRadioBtn(index){
 }
 
 get nextBtn(){//AAQ 
-    return $(".d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100")
+    return $(".btn.btn-sm.btn-primary.px-4")
 }
 
 get productAaq(){
@@ -255,7 +255,7 @@ get editCaption(){ //AAQ post
 }
 
 get aaqHeading(){
-    return $(".d-flex >div>h6")
+    return $(".d-flex.justify-content-between.mt-4.mb-2 .d-flex >h6>span")
 }
 
 homeIcon(index){ // Your feed etc icons
@@ -478,6 +478,10 @@ get selectPrdRap(){
     return $(".create-post-results-wrapper .product-wrapper:nth-child(1) .column-wrapper .form-check-input.cursor-pointer.rounded-circle")
 }
 
+selectAaqPrd(index){
+    return $(`.col-11.col-xl-10.mx-auto.mb-3:nth-child(3) .create-post-results-wrapper.d-flex.flex-wrap:nth-child(2) .product-wrapper.overflow-hidden:nth-child(${index}) .checkbox-label > .form-check-input.cursor-pointer`)
+}
+
 get hashTag(){
     return $(".content-block:nth-child(3) .post-content .bky81h-0.gEOQom .hashtag")
 }
@@ -499,7 +503,7 @@ uploadBtnForRap(index){ //when one media is uploaded
 }
 
 uploadForAaq(index){
-    return $(`.text-center.cursor-pointer.d-flex.flex-column.align-items-center.justify-content-center:nth-child(${index})`)
+    return $(`.border.rounded.flex-grow-1.p-2.h-100 .d-flex.flex-wrap .col-12:nth-child(${index})`)
 }
 
 backGroungImage(index){
@@ -512,6 +516,10 @@ backgroundBtnAaq(index){
 
 productInAaq(index){
     return $(`.bg-white.mb-2.rounded.mb-md-3.overflow-hidden.border:nth-child(${index}) .product-wrapper`)
+}
+
+nextBtnAfterBackground(index){
+    return $(`.d-flex .text-nowrap.btn.btn-primary.w-100:nth-child(${index})`)
 }
 
 get crossIcon(){//RAP cross icon
@@ -529,44 +537,41 @@ createQuWithProduct(){
     this.aaqHelpMeText.waitForVisible();
     this.aaqHelpMeText.click();
     this.aaqHelpMeText.setValue('help me to find cool bag');
-    this.uploadForAaq(1).waitForVisible();
-    this.uploadForAaq(1).click();
+    this.uploadForAaq(2).waitForVisible();
+    this.uploadForAaq(2).click();
     browser.waitUntil(
       function() {
         return (
           browser.isVisible(
-            '.cursor-pointer.position-relative.color-wrapper:nth-child(3)>img'
+            '.mb-0'
           ) === true
         );
       },
-      300000,
-      "add item input field not visible even after 10s"
-    );
-    this.backGroungImage(3).waitForVisible();
-    this.backGroungImage(3).click();
-    this.backgroundBtnAaq(2).waitForVisible();
-    this.backgroundBtnAaq(2).click();
-    browser.pause(5000); 
-    browser.waitUntil(
-      function() {
-        return (
-          browser.isVisible(
-            '.d-flex.flex-row-reverse.w-100 .text-nowrap.btn.btn-primary.w-100'
-          ) === true
-        );
-      },
-      200000,
+      60000,
       "add item input field not visible even after 10s"
     );
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
+    browser.waitUntil(
+        function() {
+          return (
+            browser.isVisible(
+              '.d-flex .text-nowrap.btn.btn-primary.w-100:nth-child(2)'
+            ) === true
+          );
+        },
+        60000,
+        "add item input field not visible even after 10s"
+      );
+    this.nextBtnAfterBackground(1).waitForVisible();
+    this.nextBtnAfterBackground(1).click();
     this.serachInRap.waitForVisible();
     this.serachInRap.click();
     this.serachInRap.setValue([testData.product.prdname1, 'Enter']);
-    this.selectPrdRap.waitForVisible();
-    this.selectPrdRap.click();
-    this.nextBtn.waitForVisible();
-    this.nextBtn.click();
+    this.selectPrdAaq(1).waitForVisible();
+    this.selectPrdAaq(1).click();
+    this.nextBtnAfterBackground(1).waitForVisible();
+    this.nextBtnAfterBackground(1).click();
     this.nextBtn.waitForVisible();
     this.nextBtn.click();
     browser.waitUntil(

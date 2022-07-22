@@ -195,6 +195,10 @@ get createWishlist(){
     return $("input[placeholder='Wishlist name']")
 }
 
+get browsePopularProducts(){ //Popular eBay products
+   return $(".ebay-merchants.border >div .browse-more.text-nowrap")
+}
+
 get createWishlistBtn(){//On profile page
     return $(".btn.btn-primary.mt-2")
 }

@@ -130,6 +130,31 @@ describe("WeShop - Search",()=>{
 
 })
 
+describe("WeShop - eBay Placement - Create dedicated eBay carousel of products",()=>{
+
+  it("Verify that the eBay home page is displayed when the user clicks on the 'Browse more products' button",()=>{
+    productPage.browsePopularProducts.waitForVisible();
+    productPage.browsePopularProducts.click();
+    var tabIds = browser.getTabIds();
+    browser.switchTab(tabIds[1]); 
+    browser.waitUntil(
+      function() {
+        return (
+          browser.isVisible(
+            '#gh-logo'
+          ) === true
+        );
+      },
+      120000,
+      "add item input field not visible even after 10s"
+    );  
+    var t=browser.getUrl();
+    expect(t).contains("https://www.ebay.co.uk/")
+    browser.close();
+    browser.switchTab(tabIds[0]); 
+  })
+})
+
 describe("WeShop - Filter",()=>{
 
   it("Verify that the results matching the specified price range is displayed when user enters min and max value price range",()=>{
@@ -224,8 +249,16 @@ describe("WeShop - Filter",()=>{
     } 
     //expect(t).to.eql(true);
 })
+})
 
+describe("WeShop - RAP",()=>{
+   
+  it("Verify that User is unable to submit the post without including a single product for 'Recommend a product' option",()=>{
+  // for AAQ with proudtc
+  Login.login(testData.login.user1,testData.login.pw);
 
+  postPage.createQuWithProduct();
+  })
   
 })
 
@@ -233,8 +266,8 @@ describe("Profile",()=>{
   
   it("Verify that Profile details updated successfully when user makes changes and tap on 'Save changes' button",()=>{
 
-    postPage.editProfileUserProfileIcon.waitForVisible();
-    postPage.editProfileUserProfileIcon.click();
+  postPage.editProfileUserProfileIcon.waitForVisible();
+  postPage.editProfileUserProfileIcon.click();
   Login.visitProfile.waitForVisible();
   Login.visitProfile.click();
   signupPage.profileEdit.waitForVisible();
@@ -306,8 +339,8 @@ describe("WeShop - Share",()=>{
     );  
     var userName=newsfeedPage.userNameAtNewsfeed.getText();
     var s=browser.getValue('.form-control.me-2');
-    loginPage.logout.waitForVisible();
-    loginPage.logout.click();
+    loginPage.logout(3).waitForVisible();
+    loginPage.logout(3).click();
     browser.url(s);
     Login.loginForShare(testData.login.user4,testData.login.pw);
     browser.waitUntil(
@@ -352,10 +385,17 @@ describe("WeShop - Share",()=>{
 describe("Weshop - Account",()=>{
 
   it("Verify that user is redirected to the support page when clicked on 'Contact support' button in deactivate account step",()=>{
+    Login.login(testData.login.user1,testData.login.pw);
+//remove
+    Login.logout(2).waitForVisible();
+    Login.logout(2).click();
     signupPage.settingOptions(8).waitForVisible();
     signupPage.settingOptions(8).click();
-   signupPage.contactSupportBtn.waitForVisible();
-   signupPage.contactSupportBtn.click();
-
+    signupPage.contactSupportBtn.waitForVisible();
+    signupPage.contactSupportBtn.click();
+    var tabIds = browser.getTabIds();
+    browser.switchTab(tabIds[1]); 
+    var t=browser.getUrl();
+    expect(t).to.eql("https://help.we.shop/en/")
   })
 })
